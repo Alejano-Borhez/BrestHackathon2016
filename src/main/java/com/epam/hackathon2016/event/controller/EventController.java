@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -39,8 +38,7 @@ public class EventController {
                            @RequestParam("eventName") String eventName,
                            @RequestParam("eventDescription") String eventDescription,
                            HttpServletResponse response
-                           /*@RequestParam("picture") MultipartFile file*/)
-            throws IOException, ParseException {
+    ) throws IOException, ParseException {
         Event event = new Event();
 
         event.setGroups(Collections.emptyList());
@@ -52,15 +50,32 @@ public class EventController {
         event.setEventDescription(eventDescription);
 
         int eventId = dao.createEvent(event);
-        File bodyToSave = new File("/img/events" + eventId + ".jpg");
-        //file.transferTo(bodyToSave);
         response.sendRedirect("index.html");
         return eventId;
     }
 
+    @RequestMapping(name = "/{eventId}/update", method = RequestMethod.PUT)
+    public boolean updateEvent(@PathVariable("eventId") int eventId,
+                           @RequestParam("date") String date,
+                           @RequestParam("budget") double budget,
+                           @RequestParam("location") String location,
+                           @RequestParam("eventName") String eventName,
+                           @RequestParam("eventDescription") String eventDescription,
+                           HttpServletResponse response
+                           ) throws IOException, ParseException {
 
+        Event event = dao.getEventById(eventId);
 
+        event.setGroups(Collections.emptyList());
+        event.setActions(Collections.emptyList());
+        event.setEventDate(new SimpleDateFormat("yyyy-MM-dd").parse(date));
+        event.setBudget(budget);
+        event.setLocation(location);
+        event.setEventName(eventName);
+        event.setEventDescription(eventDescription);
 
-
-
+        boolean updated = dao.updateEvent(event);
+        response.sendRedirect("index.html");
+        return updated;
+    }
 }

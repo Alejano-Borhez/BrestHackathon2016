@@ -6,6 +6,7 @@ import com.epam.hackathon2016.event.domain.ActionType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
@@ -33,7 +34,8 @@ public class ActionController {
     public int createAction(@RequestParam("actionName") String actionName,
                             @RequestParam("type") String type,
                             @RequestParam("costPerUser") double costPerUser,
-                            @RequestParam("actionDescription") String actionDescription
+                            @RequestParam("actionDescription") String actionDescription,
+                            HttpServletResponse resp
     ) throws IOException {
 
         Action action = new Action();
@@ -42,6 +44,30 @@ public class ActionController {
         action.setCostPerUser(costPerUser);
         action.setActionDescription(actionDescription);
 
-        return dao.createAction(action);
+        int actionId =dao.createAction(action);
+
+        resp.sendRedirect("index.html");
+
+        return actionId;
+    }
+
+    @RequestMapping(name = "/{actionId}/update", method = RequestMethod.POST)
+    public boolean updateAction(@PathVariable("actionId") int actionId,
+                            @RequestParam("actionName") String actionName,
+                            @RequestParam("type") String type,
+                            @RequestParam("costPerUser") double costPerUser,
+                            @RequestParam("actionDescription") String actionDescription,
+                                HttpServletResponse resp
+    ) throws IOException {
+
+        Action action = dao.getActionById(actionId);
+        action.setActionName(actionName);
+        action.setType(ActionType.valueOf(type));
+        action.setCostPerUser(costPerUser);
+        action.setActionDescription(actionDescription);
+
+        boolean updated = dao.updateAction(action);
+        resp.sendRedirect("index.html");
+        return updated;
     }
 }
