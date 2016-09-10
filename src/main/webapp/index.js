@@ -1,14 +1,18 @@
 $( document ).ready(function() {
+    var model = {};
 
     $("#events-item").click(function() {
         $('#event-list').empty();
         $.get('/application/events', function(events) {
+            model.events = {};
             var groups = [[], [], []];
             // group by 3 columns according the remainder
             // from division on 3
             events.forEach(function(val, index) {
+                model.events[val.eventId] = val;
                 groups[index % 3].push(val);
             });
+            console.log(model.events[1]);
             groups.forEach(function(group) {
                 var $item = $('<div>', {
                     'class' : 'col-lg-4',
@@ -28,10 +32,13 @@ $( document ).ready(function() {
                                        })
                                     })).add( $('<p>', {
                                             'html' : $('<a>', {
-                                            'href' : '#',
+                                            'href' : '#show-event',
                                             'class' : 'btn btn-primary',
                                             'role' : 'button',
+                                            'data-toggle' : 'pill',
                                             'html' : 'Show'
+                                        }).click(function() {
+                                            model.selectedEvent = x.eventId;
                                         })
                                     }))
                              }))

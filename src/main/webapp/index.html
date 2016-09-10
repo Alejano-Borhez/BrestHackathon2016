@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div class="page-header">
+    <div class="page-header fixed-top">
         <h1>
             <img src="img/epam.png" width="200px"/>
             Events
@@ -60,39 +60,42 @@
                         Create new event
                     </div>
                     <div class="panel-body">
-                        <div class="row">
-                            <form action="/application/events" method="post">
-                                <div class="form-group">
-                                    <label for="eventName">Event Name</label>
-                                    <input type="text" name="eventName" class="form-control" id="eventName">
+                        <form action="/application/events" method="post">
+                            <div class="form-group">
+                                <label for="eventName">Event Name</label>
+                                <input type="text" name="eventName" class="form-control" id="eventName">
+                            </div>
+                            <div class="form-group">
+                                <label for="location">Event Location</label>
+                                <input type="text" name="location" class="form-control" id="location">
+                            </div>
+                            <div class="form-group">
+                                <label for="date">Event Date</label>
+                                <input type="date" class="form-control" name="date" id="date">
+                            </div>
+                            <div class="form-group">
+                                <label for="eventDescription">Event Description</label>
+                                <textarea class="form-control" rows="3" name="eventDescription" id="eventDescription"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="budget">Amount (in rubles)</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">BYN</div>
+                                    <input type="text" class="form-control" name="budget" id="budget" placeholder="Amount">
+                                    <div class="input-group-addon">.00</div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="location">Event Location</label>
-                                    <input type="text" name="location" class="form-control" id="location">
-                                </div>
-                                <div class="form-group">
-                                    <label for="date">Event Date</label>
-                                    <input type="date" class="form-control" name="date" id="date">
-                                </div>
-                                <div class="form-group">
-                                    <label for="eventDescription">Event Description</label>
-                                    <textarea class="form-control" rows="3" name="eventDescription" id="eventDescription"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="budget">Amount (in rubles)</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">BYN</div>
-                                        <input type="text" class="form-control" name="budget" id="budget" placeholder="Amount">
-                                        <div class="input-group-addon">.00</div>
-                                    </div>
-                                </div>
-                                <!--<div class="form-group">
-                                    <label for="picture">Picture</label>
-                                    <input type="file" name="picture" id="picture">
-                                </div>-->
-                                <button type="submit" class="btn btn-default">Submit</button>
-                            </form>
-                        </div>
+                            </div>
+                            <button type="submit" class="btn btn-default">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="show-event">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Show event
+                    </div>
+                    <div class="panel-body">
                     </div>
                 </div>
             </div>
