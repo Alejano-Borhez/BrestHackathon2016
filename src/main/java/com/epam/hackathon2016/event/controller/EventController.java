@@ -10,6 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -35,23 +37,18 @@ public class EventController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public int createEvent(@RequestParam("groups") List<Integer> groups,
-                           @RequestParam("actions") List<Integer> actions,
-                           @RequestParam("date") Date date,
+    public int createEvent(@RequestParam("date") String date,
                            @RequestParam("budget") double budget,
                            @RequestParam("location") String location,
                            @RequestParam("eventName") String eventName,
-                           @RequestParam("eventDescription") String eventDescription,
-                           @RequestParam("picture") MultipartFile file)
-            throws IOException {
+                           @RequestParam("eventDescription") String eventDescription
+                           /*@RequestParam("picture") MultipartFile file*/)
+            throws IOException, ParseException {
         Event event = new Event();
 
-        List<Group> groupList = (groups != null)? groups.stream().map(dao::getGroupById).collect(Collectors.toList()) : Collections.EMPTY_LIST;
-        List<Action> actionList = (actions != null)? actions.stream().map(dao::getActionById).collect(Collectors.toList()) : Collections.EMPTY_LIST;
-
-        event.setGroups(groupList);
-        event.setActions(actionList);
-        event.setEventDate(date);
+        event.setGroups(Collections.emptyList());
+        event.setActions(Collections.emptyList());
+        event.setEventDate(new SimpleDateFormat("yyyy-MM-dd").parse(date));
         event.setBudget(budget);
         event.setLocation(location);
         event.setEventName(eventName);
@@ -59,7 +56,7 @@ public class EventController {
 
         int eventId = dao.createEvent(event);
         File bodyToSave = new File("/img/events" + eventId + ".jpg");
-        file.transferTo(bodyToSave);
+        //file.transferTo(bodyToSave);
         return eventId;
     }
 
