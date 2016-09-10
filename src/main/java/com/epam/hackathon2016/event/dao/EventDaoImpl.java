@@ -15,11 +15,16 @@ public class EventDaoImpl implements EventDao{
     List<Event> events;
     List<Action> actions;
     List<Survey> surveys;
+    List<Group> groups;
 
     private static int lastEventId = 0;
     private static int lastActionId = 0;
     private static int lastSurveyId = 0;
+    private static int lastGroupId = 0;
 
+    public EventDaoImpl() {
+
+    }
 
     @Override
     public Event getEventById(int id) {
@@ -43,6 +48,11 @@ public class EventDaoImpl implements EventDao{
     @Override
     public List<Event> getAllEvents() {
         return events;
+    }
+
+    @Override
+    public boolean updateEvent(Event event) {
+        return false;
     }
 
     @Override
@@ -70,6 +80,11 @@ public class EventDaoImpl implements EventDao{
     }
 
     @Override
+    public boolean updateAction(Action action) {
+        return false;
+    }
+
+    @Override
     public Survey getSurveyById(int id) {
         Iterator<Survey> iterator= surveys.iterator();
         while(iterator.hasNext()) {
@@ -92,5 +107,39 @@ public class EventDaoImpl implements EventDao{
     @Override
     public List<Survey> getAllSurveys() {
         return surveys;
+    }
+
+    @Override
+    public boolean updateSurvey(Survey survey) {
+        return false;
+    }
+
+    @Override
+    public Group getGroupById(int id) {
+        Iterator<Group> iterator= groups.iterator();
+        while(iterator.hasNext()) {
+            Group group=iterator.next();
+            if (group.getGroupId() == id)
+                return group;
+        }
+        return null;
+    }
+
+    @Override
+    public int createGroup(Group group) {
+        ++lastGroupId;
+        group.setGroupId(lastGroupId);
+        groups.add(group);
+        return lastGroupId;
+    }
+
+    @Override
+    public List<Group> getAllGroups() {
+        return groups;
+    }
+
+    @Override
+    public boolean updateGroup(Group group) {
+        return false;
     }
 }
