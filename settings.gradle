@@ -1,0 +1,5 @@
+rootProject.name = 'BrestHackathon2016'
+
+include 'event-controller',
+        'event-domain'
+
