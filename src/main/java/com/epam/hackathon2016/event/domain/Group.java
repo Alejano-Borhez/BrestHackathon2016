@@ -7,6 +7,7 @@ import java.util.ArrayList;
  */
 public class Group {
 
+    private String groupName;
     private int groupId;
     private ArrayList<User> userList;
 
@@ -24,5 +25,13 @@ public class Group {
 
     public void setUserList(ArrayList<User> userList) {
         this.userList = userList;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 }

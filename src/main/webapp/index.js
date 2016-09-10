@@ -82,9 +82,12 @@ $( document ).ready(function() {
                 var $item = $('<div>', {
                     'class' : 'col-lg-4',
                     'html': $('<div>', {
-                            'class' : 'caption',
-                            'html' : $('<h3>', { 'html' : x.groupId })
-                                .add( $('<p>').html(x.userList) )
+                            'class' : 'thumbnail',
+                            'style' : 'border-color: #87CEE6',
+                            'html' : $('<h3>', { 'html' : x.groupName })
+                                .add( $('<p>').html('<ul>').html(x.userList.map(function(a) {
+                                    return $('<li>').html(a.name);
+                                })) )
                     })
                 });
                 return $item;
@@ -93,6 +96,5 @@ $( document ).ready(function() {
     });
     
     $("#events-item").trigger('click');
-
-    $("#groups-item").trigger('click');
+    
 });
