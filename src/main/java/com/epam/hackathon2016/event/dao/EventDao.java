@@ -4,21 +4,22 @@ import com.epam.hackathon2016.event.domain.*;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by alexander on 10.9.16.
  */
 public interface EventDao {
     Event getEventById(int id);
-    int createEvent(ArrayList<Action> actions, Group group, Date date, String place, double budget);
-    ArrayList<Event> getAllEvents();
+    long createEvent(Event event);
+    List<Event> getAllEvents();
 
     Action getActionById(int id);
-    int createAction(ActionType type, double cost, String desc);
-    ArrayList<Action> getAllActions();
+    long createAction(Action action);
+    List<Action> getAllActions();
 
     Survey getSurveyById(int id);
-    int createSurvey(int eventId);
-    ArrayList<Survey> getAllSurveys();
+    long createSurvey(Survey survey);
+    List<Survey> getAllSurveys();
 
 }

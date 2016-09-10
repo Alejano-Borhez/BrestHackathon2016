@@ -2,15 +2,16 @@ package com.epam.hackathon2016.event.domain;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by alexander on 10.9.16.
  */
 public class Event {
-    private int eventId;
-    private ArrayList<Group> groups;
-    private ArrayList<User> users;
-    private ArrayList<Action> actions;
+    private long eventId;
+    private List<Group> groups;
+    private List<User> users;
+    private List<Action> actions;
     private Date eventDate;
     private double budget;
     private String location;
@@ -34,32 +35,36 @@ public class Event {
         this.eventDescription = eventDescription;
     }
 
-    public int getEventId() {
+    public long getEventId() {
         return eventId;
     }
 
-    public void setEventId(int eventId) {
+    public void setEventId(long eventId) {
         this.eventId = eventId;
     }
 
-    public ArrayList<Group> getGroups() {
+    public List<Group> getGroups() {
         return groups;
     }
 
-    public void setGroups(ArrayList<Group> groups) {
+    public void setGroups(List<Group> groups) {
         this.groups = groups;
     }
 
-    public ArrayList<User> getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 
-    public void setUsers(ArrayList<User> users) {
+    public void setUsers(List<User> users) {
         this.users = users;
     }
 
-    public ArrayList<Action> getActions() {
+    public List<Action> getActions() {
         return actions;
+    }
+
+    public void setActions(List<Action> actions) {
+        this.actions = actions;
     }
 
     public void setActions(ArrayList<Action> actions) {
