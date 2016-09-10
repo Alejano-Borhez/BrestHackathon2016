@@ -51,7 +51,7 @@ public class ActionController {
         return actionId;
     }
 
-    @RequestMapping(name = "/{actionId}/update", method = RequestMethod.POST)
+    @RequestMapping(name = "/{actionId}/update", method = RequestMethod.PUT)
     public boolean updateAction(@PathVariable("actionId") int actionId,
                             @RequestParam("actionName") String actionName,
                             @RequestParam("type") String type,
