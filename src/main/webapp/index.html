@@ -3,92 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <title>Epam Events</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/css/normalize.css" rel="stylesheet">
 </head>
 <body>
-<div class="row">
-    <div class="col-lg-12">
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search for...">
-            <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Go!</button>
-      </span>
-        </div><!-- /input-group -->
-    </div><!-- /.col-lg-6 -->
-    <hr/>
-</div><!-- /.row -->
-<div class="row">
-    <ul class="nav nav-pills nav-stacked col-lg-2" style="padding-left">
-        <li id="events-item" role="presentation" class="active">
-            <a href="#events" data-toggle="pill">Events</a>
-        </li>
-        <li role="presentation"><a href="#actions" data-toggle="pill">Actions</a></li>
-        <li role="presentation"><a href="#groups" data-toggle="pill">Groups</a></li>
-        <li role="presentation"><a href="#surveys" data-toggle="pill">Surveys</a></li>
-    </ul>
-    <!-- Tab panes -->
-    <div class="tab-content col-lg-10">
-        <div role="tabpanel" class="tab-pane active" id="events">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <a href="#add-event" class="btn btn-primary" role="button" data-toggle="pill">
-                        Add Event
-                    </a>
-                </div>
-                <div class="panel-body">
-                    <div id="event-list" class="row"></div>
+<div class="container-fluid">
+    <div class="page-header">
+        <h1>
+            <img src="img/epam.png" width="200px"/>
+            Events
+        </h1>
+    </div>
+    <div class="row">
+        <div class="tab-content col-md-2">
+            <ul class="nav nav-pills nav-stacked">
+                <li id="events-item" role="presentation" class="active">
+                    <a href="#events" data-toggle="pill">Events</a>
+                </li>
+                <li id="actions-item" role="presentation"><a href="#actions" data-toggle="pill">Actions</a></li>
+                <li role="presentation"><a href="#groups" data-toggle="pill">Groups</a></li>
+                <li role="presentation"><a href="#surveys" data-toggle="pill">Surveys</a></li>
+            </ul>
+        </div>
+        <!-- Tab panes -->
+        <div class="tab-content col-md-10">
+            <div role="tabpanel" class="tab-pane active" id="events">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a href="#add-event" class="btn btn-primary" role="button" data-toggle="pill">
+                            Add Event
+                        </a>
+                    </div>
+                    <div class="panel-body">
+                        <div id="event-list" class="row"></div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div role="tabpanel" class="tab-pane" id="actions">Some actions</div>
-        <div role="tabpanel" class="tab-pane" id="groups">Some groups</div>
-        <div role="tabpanel" class="tab-pane" id="surveys">Some surveys</div>
-        <div role="tabpanel" class="tab-pane" id="add-event">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    Create new event
+            <div role="tabpanel" class="tab-pane" id="actions">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a href="#add-action" class="btn btn-primary" role="button" data-toggle="pill">
+                            Add Actions
+                        </a>
+                    </div>
+                    <div class="panel-body">
+                        <div id="action-list" class="row"></div>
+                    </div>
                 </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <form action="/application/events" method="post">
-                            <div class="form-group">
-                                <label for="eventName">Event Name</label>
-                                <input type="text" name="eventName" class="form-control" id="eventName">
-                            </div>
-                            <div class="form-group">
-                                <label for="location">Event Location</label>
-                                <input type="text" name="location" class="form-control" id="location">
-                            </div>
-                            <div class="form-group">
-                                <label for="date">Event Date</label>
-                                <input type="date" class="form-control" name="date" id="date">
-                            </div>
-                            <div class="form-group">
-                                <label for="eventDescription">Event Description</label>
-                                <textarea class="form-control" rows="3" name="eventDescription" id="eventDescription"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label class="sr-only" for="budget">Amount (in rubles)</label>
-                                <div class="input-group">
-                                    <div class="input-group-addon">BYN</div>
-                                    <input type="text" class="form-control" name="budget" id="budget" placeholder="Amount">
-                                    <div class="input-group-addon">.00</div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="groups">Some groups</div>
+            <div role="tabpanel" class="tab-pane" id="surveys">Some surveys</div>
+            <div role="tabpanel" class="tab-pane" id="add-event">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Create new event
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <form action="/application/events" method="post">
+                                <div class="form-group">
+                                    <label for="eventName">Event Name</label>
+                                    <input type="text" name="eventName" class="form-control" id="eventName">
                                 </div>
-                            </div>
-                            <!--<div class="form-group">
-                                <label for="picture">Picture</label>
-                                <input type="file" name="picture" id="picture">
-                            </div>-->
-                            <button type="submit" class="btn btn-default">Submit</button>
-                        </form>
+                                <div class="form-group">
+                                    <label for="location">Event Location</label>
+                                    <input type="text" name="location" class="form-control" id="location">
+                                </div>
+                                <div class="form-group">
+                                    <label for="date">Event Date</label>
+                                    <input type="date" class="form-control" name="date" id="date">
+                                </div>
+                                <div class="form-group">
+                                    <label for="eventDescription">Event Description</label>
+                                    <textarea class="form-control" rows="3" name="eventDescription" id="eventDescription"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="budget">Amount (in rubles)</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">BYN</div>
+                                        <input type="text" class="form-control" name="budget" id="budget" placeholder="Amount">
+                                        <div class="input-group-addon">.00</div>
+                                    </div>
+                                </div>
+                                <!--<div class="form-group">
+                                    <label for="picture">Picture</label>
+                                    <input type="file" name="picture" id="picture">
+                                </div>-->
+                                <button type="submit" class="btn btn-default">Submit</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <script src="jquery/jquery.min.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <script src="index.js"></script>
+
 </body>
 </html>
