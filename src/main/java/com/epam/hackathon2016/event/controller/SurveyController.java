@@ -1,10 +1,13 @@
 package com.epam.hackathon2016.event.controller;
 
 import com.epam.hackathon2016.event.dao.EventDao;
+import com.epam.hackathon2016.event.domain.Event;
 import com.epam.hackathon2016.event.domain.Survey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -27,7 +30,13 @@ public class SurveyController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public int createSurvey(@ModelAttribute Survey survey) {
-        return dao.createSurvey(survey);
+    public int createSurvey(@RequestParam("eventId") int eventId, HttpServletResponse resp
+            ) throws IOException {
+        Event event = dao.getEventById(eventId);
+        Survey survey = new Survey();
+        survey.setEvent(event);
+        int surveyId = dao.createSurvey(survey);
+        resp.sendRedirect("index.html");
+        return surveyId;
     }
 }
