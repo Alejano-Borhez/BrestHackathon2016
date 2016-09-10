@@ -13,6 +13,12 @@
 
     <mvc:annotation-driven/>
 
+    <mvc:resources mapping="/img/**" location="/img/"/>
+    <mvc:resources mapping="/jquery/**" location="/jquery/"/>
+    <mvc:resources mapping="/bootstrap/**" location="/bootstrap/"/>
+    <mvc:resources mapping="/index.js" location="/index.js"/>
+    <mvc:resources mapping="/index.html" location="/index.html"/>
+
     <context:component-scan base-package="com.epam.hackathon2016.event.controller"/>
 
     <bean class="com.epam.hackathon2016.event.dao.EventDaoImpl"/>

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -29,10 +30,13 @@ public class EventController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public int createEvent(@ModelAttribute Event event, @RequestParam("picture") MultipartFile file) {
+    public int createEvent(@RequestParam()
+                           @ModelAttribute Event event,
+                           @RequestParam("picture") MultipartFile file)
+            throws IOException {
         int eventId = dao.createEvent(event);
         File bodyToSave = new File("/img/" + eventId + ".jpg");
-
+        file.transferTo(bodyToSave);
         return eventId;
     }
 

@@ -54,6 +54,7 @@ gretty{
     ]
 
     dependencies {
-        compile spring, jackson, logging, "javax.servlet:javax.servlet-api:3.1.0"
+        compile spring, jackson, logging, "javax.servlet:javax.servlet-api:3.1.0", "commons-io:commons-io:2.4",
+                "commons-fileupload:commons-fileupload:1.3.1"
         testCompile group: 'junit', name: 'junit', version: '4.11'
     }
