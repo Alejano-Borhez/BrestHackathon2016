@@ -11,15 +11,15 @@ import java.util.List;
  */
 public interface EventDao {
     Event getEventById(int id);
-    long createEvent(Event event);
+    int createEvent(Event event);
     List<Event> getAllEvents();
 
     Action getActionById(int id);
-    long createAction(Action action);
+    int createAction(Action action);
     List<Action> getAllActions();
 
     Survey getSurveyById(int id);
-    long createSurvey(Survey survey);
+    int createSurvey(Survey survey);
     List<Survey> getAllSurveys();
 
 }

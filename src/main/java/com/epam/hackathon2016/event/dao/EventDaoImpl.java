@@ -16,9 +16,9 @@ public class EventDaoImpl implements EventDao{
     List<Action> actions;
     List<Survey> surveys;
 
-    private static long lastEventId = 0;
-    private static long lastActionId = 0;
-    private static long lastSurveyId = 0;
+    private static int lastEventId = 0;
+    private static int lastActionId = 0;
+    private static int lastSurveyId = 0;
 
 
     @Override
@@ -34,15 +34,9 @@ public class EventDaoImpl implements EventDao{
     }
 
     @Override
-    public long createEvent(List<Action> actions, List<Group> groups, Date date, String location, double budget) {
+    public int createEvent(Event event) {
         ++lastEventId;
-        Event event=new Event();
-        event.setActions(actions);
-        event.setGroups(groups);
-        event.setEventDate(date);
-        event.setLocation(location);
-        event.setBudget(budget);
-
+        event.setEventId();
         return lastEventId;
     }
 
@@ -57,7 +51,7 @@ public class EventDaoImpl implements EventDao{
     }
 
     @Override
-    public int createAction(ActionType type, double cost, String desc) {
+    public int createAction(Action action) {
         return 0;
     }
 
@@ -72,9 +66,10 @@ public class EventDaoImpl implements EventDao{
     }
 
     @Override
-    public int createSurvey(int eventId) {
+    public int createSurvey(Survey survey) {
         return 0;
     }
+
 
     @Override
     public ArrayList<Survey> getAllSurveys() {
