@@ -21,6 +21,8 @@ public class EventDaoImpl implements EventDao{
 
     public EventDaoImpl() {
         actions = new ArrayList<>();
+        groups = new ArrayList<>();
+        events = new ArrayList<>();
 
         Action action1=new Action();
         action1.setType(ActionType.BBQ);
@@ -60,7 +62,7 @@ public class EventDaoImpl implements EventDao{
         lastGroupId = 1;
         ArrayList<User> usersGroup1 = new ArrayList<>(Arrays.asList(new User[]{user1, user2}));
         group.setUserList(usersGroup1);
-        createGroup(group);
+        groups.add(group);
 
 
         Event event1 = new Event();
@@ -72,7 +74,6 @@ public class EventDaoImpl implements EventDao{
         event1.setEventName("Summer Party");
         event1.setEventRating(0);
         event1.setGroups(Arrays.asList(new Group[]{group}));
-        events = new ArrayList<>();
         createEvent(event1);
     }
 
@@ -102,7 +103,7 @@ public class EventDaoImpl implements EventDao{
 
     @Override
     public boolean updateEvent(Event event) {
-        get
+        //getEventById(event.getEventId());
         return false;
     }
 
