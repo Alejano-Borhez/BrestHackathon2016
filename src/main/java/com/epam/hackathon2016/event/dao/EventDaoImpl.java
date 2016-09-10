@@ -146,7 +146,7 @@ public class EventDaoImpl implements EventDao{
         event4.setActions(favActionsForUser4);
         event4.setEventDate(stringToDate("08/03/2016"));
         event4.setEventDescription("Girls you're kindly welcome to join!");
-        event4.setEventName("Womens' day day");
+        event4.setEventName("Womens' day");
         event4.setEventRating(0);
         event4.setGroups(Arrays.asList(new Group[]{group1}));
         createEvent(event4);
