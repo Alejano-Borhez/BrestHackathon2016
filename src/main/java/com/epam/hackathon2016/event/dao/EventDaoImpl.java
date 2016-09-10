@@ -2,10 +2,7 @@ package com.epam.hackathon2016.event.dao;
 
 import com.epam.hackathon2016.event.domain.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by asavitsky on 9/10/16.
@@ -23,7 +20,60 @@ public class EventDaoImpl implements EventDao{
     private static int lastGroupId = 0;
 
     public EventDaoImpl() {
+        actions = new ArrayList<>();
 
+        Action action1=new Action();
+        action1.setType(ActionType.BBQ);
+        action1.setActionDescription("This Barbeque Baby!");
+        action1.setActionRating(0);
+        action1.setCostPerUser(100);
+        createAction(action1);
+
+        Action action2=new Action();
+        action2.setType(ActionType.PIZZA);
+        action2.setActionDescription("Wanna Pizza?");
+        action2.setActionRating(0);
+        action2.setCostPerUser(50);
+        createAction(action2);
+
+        Action action3=new Action();
+        action3.setType(ActionType.BILLIARD);
+        action3.setActionDescription("Lets play!");
+        action3.setActionRating(0);
+        action3.setCostPerUser(80);
+        createAction(action3);
+
+        User user1 = new User();
+        user1.setName("Alexander Borohov");
+        user1.setGroupId(1);
+        ArrayList<Action> favActionsForUser1 = new ArrayList<>(Arrays.asList(new Action[]{action1, action2}));
+        user1.setFavourite(favActionsForUser1);
+
+        User user2 = new User();
+        user2.setName("Andrei Mushinsky");
+        user2.setGroupId(1);
+        ArrayList<Action> favActionsForUser2 = new ArrayList<>(Arrays.asList(new Action[]{action2, action3}));
+        user2.setFavourite(favActionsForUser2);
+
+        Group group = new Group();
+        group.setGroupId(1);
+        lastGroupId = 1;
+        ArrayList<User> usersGroup1 = new ArrayList<>(Arrays.asList(new User[]{user1, user2}));
+        group.setUserList(usersGroup1);
+        createGroup(group);
+
+
+        Event event1 = new Event();
+        event1.setBudget(1000);
+        event1.setLocation("Brest, Belarus");
+        event1.setActions(favActionsForUser1);
+        event1.setEventDate(new Date());
+        event1.setEventDescription("The Hottest party ever!");
+        event1.setEventName("Summer Party");
+        event1.setEventRating(0);
+        event1.setGroups(Arrays.asList(new Group[]{group}));
+        events = new ArrayList<>();
+        createEvent(event1);
     }
 
     @Override
@@ -138,8 +188,4 @@ public class EventDaoImpl implements EventDao{
         return groups;
     }
 
-    @Override
-    public boolean updateGroup(Group group) {
-        return false;
-    }
 }

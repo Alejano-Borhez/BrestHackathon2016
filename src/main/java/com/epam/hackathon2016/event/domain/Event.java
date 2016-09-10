@@ -67,10 +67,6 @@ public class Event {
         this.actions = actions;
     }
 
-    public void setActions(ArrayList<Action> actions) {
-        this.actions = actions;
-    }
-
     public Date getEventDate() {
         return eventDate;
     }

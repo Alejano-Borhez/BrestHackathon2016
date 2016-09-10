@@ -29,6 +29,5 @@ public interface EventDao {
     Group getGroupById(int id);
     int createGroup(Group group);
     List<Group> getAllGroups();
-    boolean updateGroup(Group group);
 
 }
