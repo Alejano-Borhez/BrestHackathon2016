@@ -16,7 +16,7 @@ public class GroupController {
     @Autowired
     private EventDao dao;
 
-    @RequestMapping("/all")
+    @RequestMapping("")
     public List<Group> getAllGroups() {
         return dao.getAllGroups();
     }
@@ -26,7 +26,7 @@ public class GroupController {
         return dao.getGroupById(groupId);
     }
 
-    @RequestMapping(name = "/create", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public int createGroup(@ModelAttribute Group group) {
         return dao.createGroup(group);
     }

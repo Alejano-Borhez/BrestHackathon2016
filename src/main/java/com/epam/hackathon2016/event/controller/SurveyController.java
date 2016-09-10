@@ -16,7 +16,7 @@ public class SurveyController {
     @Autowired
     private EventDao dao;
 
-    @RequestMapping("/all")
+    @RequestMapping("")
     public List<Survey> getAllSurveys() {
         return dao.getAllSurveys();
     }
@@ -26,7 +26,7 @@ public class SurveyController {
         return dao.getSurveyById(surveyId);
     }
 
-    @RequestMapping(name = "/create", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public int createSurvey(@ModelAttribute Survey survey) {
         return dao.createSurvey(survey);
     }

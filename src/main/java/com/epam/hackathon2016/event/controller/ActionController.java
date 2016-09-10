@@ -17,17 +17,17 @@ public class ActionController {
     @Autowired
     private EventDao dao;
 
-    @RequestMapping(name = "/all")
+    @RequestMapping("")
     public List<Action> getAllActions() {
         return dao.getAllActions();
     }
 
-    @RequestMapping(name = "/{actionId}")
+    @RequestMapping("/{actionId}")
     public Action getActionById(@PathVariable("actionId") int actionId) {
         return dao.getActionById(actionId);
     }
 
-    @RequestMapping(name = "/create", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public int createAction(@ModelAttribute Action action) {
         return dao.createAction(action);
     }

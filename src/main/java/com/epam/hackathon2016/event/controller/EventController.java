@@ -4,7 +4,9 @@ import com.epam.hackathon2016.event.dao.EventDao;
 import com.epam.hackathon2016.event.domain.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -16,7 +18,7 @@ public class EventController {
     @Autowired
     private EventDao dao;
 
-    @RequestMapping("/all")
+    @RequestMapping("")
     public List<Event> getAllEvents() {
         return dao.getAllEvents();
     }
@@ -26,9 +28,12 @@ public class EventController {
         return dao.getEventById(eventId);
     }
 
-    @RequestMapping(name = "/create", method = RequestMethod.POST)
-    public int createEvent(@ModelAttribute Event event) {
-        return dao.createEvent(event);
+    @RequestMapping(method = RequestMethod.POST)
+    public int createEvent(@ModelAttribute Event event, @RequestParam("picture") MultipartFile file) {
+        int eventId = dao.createEvent(event);
+        File bodyToSave = new File("/img/" + eventId + ".jpg");
+
+        return eventId;
     }
 
 
