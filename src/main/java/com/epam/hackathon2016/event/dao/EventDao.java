@@ -20,5 +20,5 @@ public interface EventDao {
     Survey getSurveyById(int id);
     int createSurvey(int eventId);
     ArrayList<Survey> getAllSurveys();
-    
+
 }

@@ -14,7 +14,25 @@ public class Event {
     private Date eventDate;
     private double budget;
     private String location;
+    private String eventName;
+    private String eventDescription;
     private int eventRating;
+
+    public String getEventName() {
+        return eventName;
+    }
+
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
+    }
+
+    public String getEventDescription() {
+        return eventDescription;
+    }
+
+    public void setEventDescription(String eventDescription) {
+        this.eventDescription = eventDescription;
+    }
 
     public int getEventId() {
         return eventId;

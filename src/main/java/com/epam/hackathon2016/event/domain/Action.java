@@ -5,9 +5,10 @@ package com.epam.hackathon2016.event.domain;
  */
 public class Action {
     private int actionId;
+    private String actionName;
     private ActionType type;
     private double costPerUser;
-    private String description;
+    private String actionDescription;
     private int actionRating;
 
     public int getActionId() {
@@ -34,12 +35,20 @@ public class Action {
         this.costPerUser = costPerUser;
     }
 
-    public String getDescription() {
-        return description;
+    public String getActionName() {
+        return actionName;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setActionName(String actionName) {
+        this.actionName = actionName;
+    }
+
+    public String getActionDescription() {
+        return actionDescription;
+    }
+
+    public void setActionDescription(String actionDescription) {
+        this.actionDescription = actionDescription;
     }
 
     public int getActionRating() {
