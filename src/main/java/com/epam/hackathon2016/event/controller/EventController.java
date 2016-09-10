@@ -58,7 +58,7 @@ public class EventController {
         event.setEventDescription(eventDescription);
 
         int eventId = dao.createEvent(event);
-        File bodyToSave = new File("/img/" + eventId + ".jpg");
+        File bodyToSave = new File("/img/events" + eventId + ".jpg");
         file.transferTo(bodyToSave);
         return eventId;
     }
