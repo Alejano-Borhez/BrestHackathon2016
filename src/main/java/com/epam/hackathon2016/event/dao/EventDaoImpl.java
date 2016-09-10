@@ -2,6 +2,8 @@ package com.epam.hackathon2016.event.dao;
 
 import com.epam.hackathon2016.event.domain.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -26,7 +28,7 @@ public class EventDaoImpl implements EventDao{
 
         Action action1=new Action();
         action1.setType(ActionType.BBQ);
-        action1.setActionDescription("This Barbeque Baby!");
+        action1.setActionDescription("This is Barbecue Baby!");
         action1.setActionRating(0);
         action1.setCostPerUser(100);
         createAction(action1);
@@ -45,6 +47,27 @@ public class EventDaoImpl implements EventDao{
         action3.setCostPerUser(80);
         createAction(action3);
 
+        Action action4=new Action();
+        action4.setType(ActionType.POKER);
+        action4.setActionDescription("Bring your money man!");
+        action4.setActionRating(0);
+        action4.setCostPerUser(20);
+        createAction(action4);
+
+        Action action5=new Action();
+        action5.setType(ActionType.BOATING);
+        action5.setActionDescription("Swimming? Cool!");
+        action5.setActionRating(0);
+        action5.setCostPerUser(10);
+        createAction(action5);
+
+        Action action6=new Action();
+        action6.setType(ActionType.SAUNA);
+        action6.setActionDescription("Take a towel and be ready to get sweat!");
+        action6.setActionRating(0);
+        action6.setCostPerUser(50);
+        createAction(action6);
+
         User user1 = new User();
         user1.setName("Alexander Borohov");
         user1.setGroupId(1);
@@ -54,27 +77,91 @@ public class EventDaoImpl implements EventDao{
         User user2 = new User();
         user2.setName("Andrei Mushinsky");
         user2.setGroupId(1);
-        ArrayList<Action> favActionsForUser2 = new ArrayList<>(Arrays.asList(new Action[]{action2, action3}));
+        ArrayList<Action> favActionsForUser2 = new ArrayList<>(Arrays.asList(new Action[]{action2, action3, action6}));
         user2.setFavourite(favActionsForUser2);
 
-        Group group = new Group();
-        group.setGroupId(1);
+        User user3 = new User();
+        user3.setName("Anton Savitsky");
+        user3.setGroupId(2);
+        ArrayList<Action> favActionsForUser3 = new ArrayList<>(Arrays.asList(new Action[]{action4, action5}));
+        user3.setFavourite(favActionsForUser3);
+
+        User user4 = new User();
+        user4.setName("Vasily Bur");
+        user4.setGroupId(2);
+        ArrayList<Action> favActionsForUser4 = new ArrayList<>(Arrays.asList(new Action[]{action2, action3, action5, action6}));
+        user4.setFavourite(favActionsForUser4);
+
+        Group group1 = new Group();
+        group1.setGroupId(1);
         lastGroupId = 1;
         ArrayList<User> usersGroup1 = new ArrayList<>(Arrays.asList(new User[]{user1, user2}));
-        group.setUserList(usersGroup1);
-        groups.add(group);
+        group1.setUserList(usersGroup1);
+        groups.add(group1);
 
+        Group group2 = new Group();
+        group2.setGroupId(2);
+        lastGroupId = 2;
+        ArrayList<User> usersGroup2 = new ArrayList<>(Arrays.asList(new User[]{user3, user4}));
+        group2.setUserList(usersGroup2);
+        groups.add(group2);
 
         Event event1 = new Event();
         event1.setBudget(1000);
         event1.setLocation("Brest, Belarus");
         event1.setActions(favActionsForUser1);
-        event1.setEventDate(new Date());
+        event1.setEventDate(stringToDate("07/08/2016"));
         event1.setEventDescription("The Hottest party ever!");
         event1.setEventName("Summer Party");
         event1.setEventRating(0);
-        event1.setGroups(Arrays.asList(new Group[]{group}));
+        event1.setGroups(Arrays.asList(new Group[]{group1}));
         createEvent(event1);
+
+        Event event2 = new Event();
+        event2.setBudget(2000);
+        event2.setLocation("Minsk, Belarus");
+        event2.setActions(favActionsForUser2);
+        event2.setEventDate(stringToDate("23/02/2017"));
+        event2.setEventDescription("Today is the day of the people I love the most in this world my cute dad and my brothers he gave me, " +
+                "thank you all for the great love you give me, happy men’s day");
+        event2.setEventName("Mens' day");
+        event2.setEventRating(0);
+        event2.setGroups(Arrays.asList(new Group[]{group2}));
+        createEvent(event2);
+
+        Event event3 = new Event();
+        event3.setBudget(1400);
+        event3.setLocation("Gomel, Belarus");
+        event3.setActions(favActionsForUser3);
+        event3.setEventDate(stringToDate("23/12/2016"));
+        event3.setEventDescription("The Hottest party ever!");
+        event3.setEventName("Winter Party");
+        event3.setEventRating(0);
+        event3.setGroups(Arrays.asList(new Group[]{group2}));
+        createEvent(event3);
+
+        Event event4 = new Event();
+        event4.setBudget(2000);
+        event4.setLocation("Minsk, Belarus");
+        event4.setActions(favActionsForUser4);
+        event4.setEventDate(stringToDate("08/03/2016"));
+        event4.setEventDescription("Girls you're kindly welcome to join!");
+        event4.setEventName("Womens' day day");
+        event4.setEventRating(0);
+        event4.setGroups(Arrays.asList(new Group[]{group1}));
+        createEvent(event4);
+
+        Event event5 = new Event();
+        event5.setBudget(1400);
+        event5.setLocation("Gomel, Belarus");
+        event5.setActions(favActionsForUser3);
+        event5.setEventDate(stringToDate("12/09/2016"));
+        event5.setEventDescription("Today, on the 256th day of the year, we celebrate our professional holiday! " +
+                "We'd like to congratulate my colleagues and wish effective solutions, bug-free code and wide recognition of your efforts!");
+        event5.setEventName("Programmer Day");
+        event5.setEventRating(0);
+        event5.setGroups(Arrays.asList(new Group[]{group2}));
+        createEvent(event5);
     }
 
     @Override
@@ -103,8 +190,9 @@ public class EventDaoImpl implements EventDao{
 
     @Override
     public boolean updateEvent(Event event) {
-        //getEventById(event.getEventId());
-        return false;
+        Event eventToBeUpdated = getEventById(event.getEventId());
+        events.set(events.indexOf(eventToBeUpdated), event);
+        return true;
     }
 
     @Override
@@ -133,7 +221,9 @@ public class EventDaoImpl implements EventDao{
 
     @Override
     public boolean updateAction(Action action) {
-        return false;
+        Action actionToBeUpdated = getActionById(action.getActionId());
+        actions.set(actions.indexOf(actionToBeUpdated), action);
+        return true;
     }
 
     @Override
@@ -162,11 +252,6 @@ public class EventDaoImpl implements EventDao{
     }
 
     @Override
-    public boolean updateSurvey(Survey survey) {
-        return false;
-    }
-
-    @Override
     public Group getGroupById(int id) {
         Iterator<Group> iterator= groups.iterator();
         while(iterator.hasNext()) {
@@ -188,6 +273,17 @@ public class EventDaoImpl implements EventDao{
     @Override
     public List<Group> getAllGroups() {
         return groups;
+    }
+
+    Date stringToDate(String str){
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        try {
+            date = formatter.parse(str);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
     }
 
 }

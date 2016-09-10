@@ -23,7 +23,6 @@ public interface EventDao {
     Survey getSurveyById(int id);
     int createSurvey(Survey survey);
     List<Survey> getAllSurveys();
-    boolean updateSurvey(Survey survey);
 
 
     Group getGroupById(int id);

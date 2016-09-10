@@ -8,7 +8,7 @@ import java.util.List;
  * Created by alexander on 10.9.16.
  */
 public class Event {
-    private long eventId;
+    private int eventId;
     private List<Group> groups;
     private List<User> users;
     private List<Action> actions;
@@ -35,11 +35,11 @@ public class Event {
         this.eventDescription = eventDescription;
     }
 
-    public long getEventId() {
+    public int getEventId() {
         return eventId;
     }
 
-    public void setEventId(long eventId) {
+    public void setEventId(int eventId) {
         this.eventId = eventId;
     }
 
@@ -97,5 +97,21 @@ public class Event {
 
     public void setEventRating(int eventRating) {
         this.eventRating = eventRating;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Event event = (Event) o;
+
+        return eventId == event.eventId;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return eventId;
     }
 }
