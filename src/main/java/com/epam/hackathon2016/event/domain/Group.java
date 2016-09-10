@@ -1,0 +1,28 @@
+package com.epam.hackathon2016.event.domain;
+
+import java.util.ArrayList;
+
+/**
+ * Created by alexander on 10.9.16.
+ */
+public class Group {
+
+    private int groupId;
+    private ArrayList<User> userList;
+
+    public int getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
+    }
+
+    public ArrayList<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(ArrayList<User> userList) {
+        this.userList = userList;
+    }
+}

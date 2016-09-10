@@ -1,7 +1,6 @@
 group 'event-generator'
 version '1.0-SNAPSHOT'
 
-allprojects {
     apply plugin: 'java'
     sourceCompatibility = 1.8
 
@@ -37,7 +36,3 @@ allprojects {
         compile spring, jackson, logging
         testCompile group: 'junit', name: 'junit', version: '4.11'
     }
-
-}
-
-
