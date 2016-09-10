@@ -102,6 +102,7 @@ public class EventDaoImpl implements EventDao{
 
     @Override
     public boolean updateEvent(Event event) {
+        get
         return false;
     }
 
