@@ -27,16 +27,16 @@ public class EventDaoImpl implements EventDao{
         while(iterator.hasNext()) {
             Event event=iterator.next();
                 if (event.getEventId() == id)
-                    return
+                    return event;
         }
-
         return null;
     }
 
     @Override
     public int createEvent(Event event) {
         ++lastEventId;
-        event.setEventId();
+        event.setEventId(lastEventId);
+        events.add(event);
         return lastEventId;
     }
 
@@ -47,32 +47,50 @@ public class EventDaoImpl implements EventDao{
 
     @Override
     public Action getActionById(int id) {
+        Iterator<Action> iterator= actions.iterator();
+        while(iterator.hasNext()) {
+            Action action=iterator.next();
+            if (action.getActionId() == id)
+                return action;
+        }
         return null;
     }
 
     @Override
     public int createAction(Action action) {
-        return 0;
+        ++lastActionId;
+        action.setActionId(lastActionId);
+        actions.add(action);
+        return lastActionId;
     }
 
     @Override
-    public ArrayList<Action> getAllActions() {
-        return null;
+    public List<Action> getAllActions() {
+        return actions;
     }
 
     @Override
     public Survey getSurveyById(int id) {
+        Iterator<Survey> iterator= surveys.iterator();
+        while(iterator.hasNext()) {
+            Survey survey=iterator.next();
+            if (survey.getSurveyId() == id)
+                return survey;
+        }
         return null;
     }
 
     @Override
     public int createSurvey(Survey survey) {
-        return 0;
+        ++lastSurveyId;
+        survey.setSurveyId(lastSurveyId);
+        surveys.add(survey);
+        return lastSurveyId;
     }
 
 
     @Override
-    public ArrayList<Survey> getAllSurveys() {
-        return null;
+    public List<Survey> getAllSurveys() {
+        return surveys;
     }
 }

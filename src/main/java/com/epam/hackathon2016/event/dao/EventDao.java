@@ -22,4 +22,7 @@ public interface EventDao {
     int createSurvey(Survey survey);
     List<Survey> getAllSurveys();
 
+    Group getGroupById(int id);
+    int createGroup(Group group);
+    List<Group> getAllGroups();
 }
