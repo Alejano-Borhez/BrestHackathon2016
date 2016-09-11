@@ -7,7 +7,6 @@ import java.util.ArrayList;
  */
 public class Group {
 
-    private String groupName;
     private int groupId;
     private String groupName;
     private ArrayList<User> userList;
