@@ -7,7 +7,6 @@ import com.epam.hackathon2016.event.domain.User;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
@@ -27,9 +26,7 @@ import java.util.stream.Collectors;
  */
 @Component
 public class EventMailSender {
-    @Autowired
     private JavaMailSender mailSender;
-    @Autowired
     private Configuration freeMarkerConfig;
 
     private boolean sendEventCreationEmail(Event event) {
@@ -37,18 +34,22 @@ public class EventMailSender {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
 
-        String[] sendTo = getSendTo(event);
-
-        try {
-            helper.setTo(sendTo);
-            helper.setSubject("New EPAM event is coming! Get involved!!!");
-            helper.setText(prepareMailText(event, "event"), true);
-        } catch (MessagingException | TemplateException | IOException e) {
-            e.printStackTrace();
-            return false;
+        List<User> userList = new ArrayList<>();
+        for (Group group: event.getGroups()) {
+            userList.addAll(group.getUserList().stream().collect(Collectors.toList()));
         }
+        userList.stream().forEach(user -> {
+            try {
+                helper.setTo(user.getEmail());
+                helper.setSubject("Dear, " + user.getName() + "! New EPAM event is coming! Get involved!!!");
+                helper.setText(prepareMailText(event, "event", user));
+                mailSender.send(mimeMessage);
 
-        mailSender.send(mimeMessage);
+            } catch (MessagingException | TemplateException | IOException e) {
+                System.out.println("Email to user: " + user.getName() + " was not sent!");
+                e.printStackTrace();
+            }
+        });
 
         return true;
     }
@@ -59,18 +60,22 @@ public class EventMailSender {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
 
-        String[] sendTo = getSendTo(event);
-
-        try {
-            helper.setTo(sendTo);
-            helper.setSubject("EPAM event is over. And we are waiting for your feedback!!!");
-            helper.setText(prepareMailText(event, "survey"), true);
-        } catch (MessagingException | TemplateException | IOException e) {
-            e.printStackTrace();
-            return false;
+        List<User> userList = new ArrayList<>();
+        for (Group group: event.getGroups()) {
+            userList.addAll(group.getUserList().stream().collect(Collectors.toList()));
         }
+        userList.stream().forEach(user -> {
+            try {
+                helper.setTo(user.getEmail());
+                helper.setSubject("Dear, " + user.getName() + "! EPAM event is over. And we are waiting for your feedback!!!");
+                helper.setText(prepareMailText(event, "survey", user));
+                mailSender.send(mimeMessage);
 
-        mailSender.send(mimeMessage);
+            } catch (MessagingException | TemplateException | IOException e) {
+                System.out.println("Email to user: " + user.getName() + " was not sent!");
+                e.printStackTrace();
+            }
+        });
 
         return true;
     }
@@ -86,12 +91,13 @@ public class EventMailSender {
         return (String[]) emails.toArray();
     }
 
-    private String prepareMailText(Event event, String topic) throws IOException, TemplateException {
+    private String prepareMailText(Event event, String topic, User user) throws IOException, TemplateException {
         StringWriter message = new StringWriter();
 
         Template template = freeMarkerConfig.getTemplate(topic + ".ftl");
         Map<String, Object> model = new HashMap<>();
         model.put("event", event);
+        model.put("user", user);
         template.process(model, message);
 
         return message.toString();

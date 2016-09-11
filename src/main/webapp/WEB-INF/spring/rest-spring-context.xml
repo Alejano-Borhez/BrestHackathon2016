@@ -34,6 +34,9 @@
         <property name="prettyPrint" value="true" />
     </bean>
 
-    <!-- Freemarker Template Engine Setup-->
+    <!-- Freemarker Template Engine Setup -->
+    <bean id="freemarkerMailConfig" class="freemarker.template.Configuration">
+        <property name="directoryForTemplateLoading" value="templates"/>
+    </bean>
 
 </beans>
