@@ -5,7 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by asavitsky on 9/10/16.
@@ -13,6 +16,7 @@ import java.util.*;
 @Repository
 public class EventDaoImpl implements EventDao{
 
+    List<User> users;
     List<Event> events;
     List<Action> actions;
     List<Survey> surveys;
@@ -22,8 +26,10 @@ public class EventDaoImpl implements EventDao{
     private static int lastActionId = 0;
     private static int lastSurveyId = 0;
     private static int lastGroupId = 0;
+    private static int lastUserId = 0;
 
     public EventDaoImpl() {
+        users = new ArrayList<>();
         actions = new ArrayList<>();
         groups = new ArrayList<>();
         events = new ArrayList<>();
@@ -72,6 +78,8 @@ public class EventDaoImpl implements EventDao{
         createAction(action6);
 
         User user1 = new User();
+        ++lastUserId;
+        user1.setId(lastUserId);
         user1.setName("Alexander Borohov");
         user1.setEmail("alexander.borohov17@gmail.com");
         user1.setGroupId(1);
@@ -79,6 +87,8 @@ public class EventDaoImpl implements EventDao{
         user1.setFavourite(favActionsForUser1);
 
         User user2 = new User();
+        ++lastUserId;
+        user2.setId(lastUserId);
         user2.setName("Andrei Mushinsky");
         user2.setEmail("alexander.borohov17@gmail.com");
         user2.setGroupId(1);
@@ -86,6 +96,8 @@ public class EventDaoImpl implements EventDao{
         user2.setFavourite(favActionsForUser2);
 
         User user3 = new User();
+        ++lastUserId;
+        user3.setId(lastUserId);
         user3.setName("Anton Savitsky");
         user3.setEmail("anton.savitsky.1995@gmail.com");
         user3.setGroupId(2);
@@ -93,6 +105,8 @@ public class EventDaoImpl implements EventDao{
         user3.setFavourite(favActionsForUser3);
 
         User user4 = new User();
+        ++lastUserId;
+        user4.setId(lastUserId);
         user4.setName("Vasily Bur");
         user4.setEmail("alexander.borohov17@gmail.com");
         user4.setGroupId(2);
@@ -184,11 +198,9 @@ public class EventDaoImpl implements EventDao{
 
     @Override
     public Event getEventById(int id) {
-        Iterator<Event> iterator= events.iterator();
-        while(iterator.hasNext()) {
-            Event event=iterator.next();
-                if (event.getEventId() == id)
-                    return event;
+        for (Event event : events) {
+            if (event.getEventId() == id)
+                return event;
         }
         return null;
     }
@@ -215,9 +227,7 @@ public class EventDaoImpl implements EventDao{
 
     @Override
     public Action getActionById(int id) {
-        Iterator<Action> iterator= actions.iterator();
-        while(iterator.hasNext()) {
-            Action action=iterator.next();
+        for (Action action : actions) {
             if (action.getActionId() == id)
                 return action;
         }
@@ -246,9 +256,7 @@ public class EventDaoImpl implements EventDao{
 
     @Override
     public Survey getSurveyById(int id) {
-        Iterator<Survey> iterator= surveys.iterator();
-        while(iterator.hasNext()) {
-            Survey survey=iterator.next();
+        for (Survey survey : surveys) {
             if (survey.getSurveyId() == id)
                 return survey;
         }
@@ -271,9 +279,7 @@ public class EventDaoImpl implements EventDao{
 
     @Override
     public Group getGroupById(int id) {
-        Iterator<Group> iterator= groups.iterator();
-        while(iterator.hasNext()) {
-            Group group=iterator.next();
+        for (Group group : groups) {
             if (group.getGroupId() == id)
                 return group;
         }
@@ -291,6 +297,34 @@ public class EventDaoImpl implements EventDao{
     @Override
     public List<Group> getAllGroups() {
         return groups;
+    }
+
+    @Override
+    public User getUserById(int userId) {
+        for (User user : users) {
+            if (user.getId() == userId)
+                return user;
+        }
+        return null;
+    }
+
+    @Override
+    public int createUser(User user) {
+        ++lastUserId;
+        user.setId(lastUserId);
+        users.add(user);
+        return lastUserId;
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return users;
+    }
+
+    @Override
+    public void updateUser(User user) {
+        User toBeUpdated = getUserById(user.getId());
+        users.set(users.indexOf(toBeUpdated), user);
     }
 
     Date stringToDate(String str){
