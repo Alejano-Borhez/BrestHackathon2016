@@ -62,6 +62,7 @@ $( document ).ready(function() {
             });
         });
     });
+
     $("#actions-item").click(function() {
         $('#action-list').empty();
         $.get('/application/actions', function(events) {
@@ -94,12 +95,16 @@ $( document ).ready(function() {
                 var $item = $('<div>', {
                     'class' : 'col-lg-4',
                     'html': $('<div>', {
-                            'class' : 'thumbnail',
-                            'style' : 'border-color: #87CEE6',
-                            'html' : $('<h3>', { 'html' : x.groupName })
-                                .add( $('<p>').html('<ul>').html(x.userList.map(function(a) {
-                                    return $('<li>').html(a.name);
-                                })) )
+                        'class' : 'thumbnail',
+                        'style' : 'border-color: #87CEE6',
+                        'html' : $('<h3>', { 'html' : x.groupName })
+                            .add( $('<p>', {'html' : $('<ul>').add(x.userList.map(function(a) {
+                                return $('<li>').html(a.name).html('<p>').html(a.favourite.map(
+                                    function (f) {
+                                        return $('<span>').addClass('label label-default').html(f.actionName);
+                                    }
+                                ));
+                            })) }))
                     })
                 });
                 return $item;
