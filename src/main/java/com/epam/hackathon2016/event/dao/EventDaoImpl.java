@@ -1,6 +1,7 @@
 package com.epam.hackathon2016.event.dao;
 
 import com.epam.hackathon2016.event.domain.*;
+import org.springframework.stereotype.Repository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,6 +10,7 @@ import java.util.*;
 /**
  * Created by asavitsky on 9/10/16.
  */
+@Repository
 public class EventDaoImpl implements EventDao{
 
     List<Event> events;

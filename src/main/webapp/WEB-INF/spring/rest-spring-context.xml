@@ -19,9 +19,7 @@
     <mvc:resources mapping="/index.js" location="/index.js"/>
     <mvc:resources mapping="/index.html" location="/index.html"/>
 
-    <context:component-scan base-package="com.epam.hackathon2016.event.controller"/>
-
-    <bean class="com.epam.hackathon2016.event.dao.EventDaoImpl"/>
+    <context:component-scan base-package="com.epam.hackathon2016.event"/>
 
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
         <property name="messageConverters">
@@ -35,5 +33,7 @@
         <property name="supportedMediaTypes" value="application/json" />
         <property name="prettyPrint" value="true" />
     </bean>
+
+    <!-- Freemarker Template Engine Setup-->
 
 </beans>
