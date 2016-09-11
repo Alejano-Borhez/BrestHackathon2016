@@ -204,7 +204,7 @@ $( document ).ready(function() {
                 var $item = $('<div>', {
                     'class' : 'col-lg-4',
                     'html': $('<div>', {
-                        'html' : $('<h3>', { 'html' : x.groupName })
+                        'html' : $('<h3>', { 'html' : x.groupName, 'style':'text-align: center;'})
                             .add( $('<p>', {'html' : $('<ul>', {'html' : x.userList.map(function(a) {
                                 return $('<li>', { 'html': a.name+"<br/>" , 'class': 'thumbnail', 'style':'margin:2%'}).append(a.favourite.map(
                                     function (f) {
