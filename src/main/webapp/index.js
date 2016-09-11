@@ -152,24 +152,29 @@ $( document ).ready(function() {
             });
         });
     });
+
     $("#actions-item").click(function() {
         $('#action-list').empty();
         $.get('/application/actions', function(events) {
             events.map(function(x) {
                 var $item = $('<div>', {
                     'class' : 'media',
+                    'style' : 'padding-left:20px',
                     'html' : $('<div>', {
                         'class' : "media-left",
                         'html' : $('<img>', {
                             'class' : 'media-object',
-                            'width' : '100px',
-                            'height' : '100px',
+                            'width' : '200px',
+                            'height' : '200px',
                             'src' : 'img/actions/' + x.actionId + '.jpg'
                         })
                     }).add( $('<div>', {
                         'class' : "media-body",
-                        'html' : $('<h4>')
-                            .html("(" + x.actionName + ") " + x.actionDescription)
+                        'html' : $('<h3>')
+                            .html(x.actionName)
+                            .add( $('<p>').html(x.actionDescription) )
+                            .add( $('<p>').html('Cost per person: ' + x.costPerUser + ' BYN') )
+                            .add( $('<p>').html('Rating: ' + x.actionRating) )
                     }))
                 });
                 return $item;
@@ -184,12 +189,16 @@ $( document ).ready(function() {
                 var $item = $('<div>', {
                     'class' : 'col-lg-4',
                     'html': $('<div>', {
-                            'class' : 'thumbnail',
-                            'style' : 'border-color: #87CEE6',
-                            'html' : $('<h3>', { 'html' : x.groupName })
-                                .add( $('<p>').html('<ul>').html(x.userList.map(function(a) {
-                                    return $('<li>').html(a.name);
-                                })) )
+                        'class' : 'thumbnail',
+                        'style' : 'border-color: #87CEE6',
+                        'html' : $('<h3>', { 'html' : x.groupName })
+                            .add( $('<p>', {'html' : $('<ul>').add(x.userList.map(function(a) {
+                                return $('<li>').html(a.name).html('<p>').html(a.favourite.map(
+                                    function (f) {
+                                        return $('<span>').addClass('label label-default').html(f.actionName);
+                                    }
+                                ));
+                            })) }))
                     })
                 });
                 return $item;

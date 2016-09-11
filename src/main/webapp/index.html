@@ -112,6 +112,38 @@
                     </div>
                 </div>
             </div>
+            <div role="tabpanel" class="tab-pane" id="add-action">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Create new action
+                    </div>
+                    <div class="panel-body">
+                        <form action="/application/actions" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="actionName">Action Name</label>
+                                <input type="text" name="actionName" class="form-control" id="actionName">
+                            </div>
+                            <div class="form-group">
+                                <label for="actionDescription">Action Description</label>
+                                <textarea class="form-control" rows="3" name="actionDescription" id="actionDescription"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="costPerUser">Cost (in rubles)</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">BYN</div>
+                                    <input type="text" class="form-control" name="costPerUser" id="costPerUser" placeholder="Amount">
+                                    <div class="input-group-addon">per person</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="actionImage">File input</label>
+                                <input type="file" name="actionImage" id="actionImage">
+                            </div>
+                            <button type="submit" class="btn btn-default">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
             <div role="tabpanel" class="tab-pane" id="show-event">
                 <div class="panel panel-default">
                     <div class="panel-heading">
