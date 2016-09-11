@@ -45,6 +45,7 @@
     <!-- Freemarker Template Engine Setup -->
     <bean id="freemarkerMailConfig" class="freemarker.template.Configuration">
         <property name="directoryForTemplateLoading" value="templates"/>
+        <property name="defaultEncoding" value="UTF-8"/>
     </bean>
 
     <!-- Mail Sender config -->
