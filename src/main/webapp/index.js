@@ -156,29 +156,37 @@ $( document ).ready(function() {
     $("#actions-item").click(function() {
         $('#action-list').empty();
         $.get('/application/actions', function(events) {
-            events.map(function(x) {
-                var $item = $('<div>', {
-                    'class' : 'media',
-                    'style' : 'padding-left:20px',
-                    'html' : $('<div>', {
-                        'class' : "media-left",
-                        'html' : $('<img>', {
-                            'class' : 'media-object',
-                            'width' : '200px',
-                            'height' : '200px',
-                            'src' : 'img/actions/' + x.actionId + '.jpg'
-                        })
-                    }).add( $('<div>', {
-                        'class' : "media-body",
-                        'html' : $('<h3>')
-                            .html(x.actionName)
-                            .add( $('<p>').html(x.actionDescription) )
-                            .add( $('<p>').html('Cost per person: ' + x.costPerUser + ' BYN') )
-                            .add( $('<p>').html('Rating: ' + x.actionRating) )
-                    }))
-                });
-                return $item;
-            }).forEach(function(x) { $('#action-list').append(x); });
+            var columns = [[],[]];
+            events.forEach(function(val, index) {
+                columns[index % 2].push(val);
+            });
+            columns.forEach(function(column) {
+                var $col = $('<div>', { 'class' : 'col-lg-6' });
+                column.map(function(x) {
+                    var $item = $('<div>', {
+                        'class' : 'media',
+                        'style' : 'padding-left:20px',
+                        'html' : $('<div>', {
+                            'class' : "media-left",
+                            'html' : $('<img>', {
+                                'class' : 'media-object',
+                                'width' : '200px',
+                                'height' : '200px',
+                                'src' : 'img/actions/' + x.actionId + '.jpg'
+                            })
+                        }).add( $('<div>', {
+                            'class' : "media-body",
+                            'html' : $('<h3>')
+                                .html(x.actionName)
+                                .add( $('<p>').html(x.actionDescription) )
+                                .add( $('<p>').html('Cost per person: ' + x.costPerUser + ' BYN') )
+                                .add( $('<p>').html('Rating: ' + x.actionRating) )
+                        }))
+                    });
+                    return $item;
+                }).forEach(function(x) { $col.append(x); });
+                $('#action-list').append($col);
+            });
         });
     });
 
