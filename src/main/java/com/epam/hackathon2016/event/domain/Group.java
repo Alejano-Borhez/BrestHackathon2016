@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class Group {
 
     private int groupId;
+    private String groupName;
     private ArrayList<User> userList;
 
     public int getGroupId() {
@@ -24,5 +25,13 @@ public class Group {
 
     public void setUserList(ArrayList<User> userList) {
         this.userList = userList;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 }

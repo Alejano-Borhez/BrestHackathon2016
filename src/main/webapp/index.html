@@ -31,7 +31,7 @@
             <div role="tabpanel" class="tab-pane active" id="events">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <a href="#add-event" class="btn btn-primary" role="button" data-toggle="pill">
+                        <a id="add-event-btn" href="#add-event" class="btn btn-primary" role="button" data-toggle="pill">
                             Add Event
                         </a>
                     </div>
@@ -84,6 +84,11 @@
                                     <input type="text" class="form-control" name="budget" id="budget" placeholder="Amount">
                                     <div class="input-group-addon">.00</div>
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="groupList">Groups</label>
+                                <select multiple id="groupList" name="groupList" class="form-control">
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="picture">File input</label>

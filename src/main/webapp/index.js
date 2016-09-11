@@ -1,6 +1,18 @@
 $( document ).ready(function() {
     var model = {};
 
+    $("#add-event-btn").click(function() {
+        $('#groupList').empty();
+        $.get('/application/groups', function(groups) {
+            groups.forEach(function(group) {
+                $('#groupList').append( $('<option>', {
+                    'value' : group.groupId,
+                    'html' : group.groupName
+                }) );
+            })
+        });
+    });
+
     $("#events-item").click(function() {
         $('#event-list').empty();
         $.get('/application/events', function(events) {

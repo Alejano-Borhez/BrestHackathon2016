@@ -94,6 +94,7 @@ public class EventDaoImpl implements EventDao{
 
         Group group1 = new Group();
         group1.setGroupId(1);
+        group1.setGroupName("Java Team");
         lastGroupId = 1;
         ArrayList<User> usersGroup1 = new ArrayList<>(Arrays.asList(new User[]{user1, user2}));
         group1.setUserList(usersGroup1);
@@ -101,6 +102,7 @@ public class EventDaoImpl implements EventDao{
 
         Group group2 = new Group();
         group2.setGroupId(2);
+        group2.setGroupName(".NET Team");
         lastGroupId = 2;
         ArrayList<User> usersGroup2 = new ArrayList<>(Arrays.asList(new User[]{user3, user4}));
         group2.setUserList(usersGroup2);
