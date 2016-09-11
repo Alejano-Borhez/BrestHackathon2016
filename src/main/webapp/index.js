@@ -204,18 +204,18 @@ $( document ).ready(function() {
                 var $item = $('<div>', {
                     'class' : 'col-lg-4',
                     'html': $('<div>', {
-                        'class' : 'thumbnail',
-                        'style' : 'border-color: #87CEE6',
                         'html' : $('<h3>', { 'html' : x.groupName })
-                            .add( $('<p>', {'html' : $('<ul>').add($('<p>'), {'html' : x.userList.map(function(a) {
-                                return $('<li>').add($('<p>'), {'html' : a.favourite.map(
+                            .add( $('<p>', {'html' : $('<ul>', {'html' : x.userList.map(function(a) {
+                                return $('<li>', { 'html': a.name+"<br/>" , 'class': 'thumbnail', 'style':'margin:2%'}).append(a.favourite.map(
                                     function (f) {
-                                        return $('<span>', {'class' : 'label label-default', 'html': f.actionName});
+                                        return $('<div>',
+                                            {'html': $('<span>', {'class' : 'label label-primary', 'html': f.actionName})
+                                                , 'style':'display: inline-block; margin: 0% 0% 0% 3%'});
                                     }
-                                )});
-                            })})
+                                ));
+                            }), 'style':'padding: 0;;list-style-type: none'})
                             }))
-                    })
+                    , 'class': 'thumbnail'})
                 });
                 return $item;
             }).forEach(function(x) { $('#group-list').append(x); });
