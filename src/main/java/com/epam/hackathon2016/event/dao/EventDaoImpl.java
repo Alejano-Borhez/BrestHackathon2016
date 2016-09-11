@@ -27,6 +27,7 @@ public class EventDaoImpl implements EventDao{
         actions = new ArrayList<>();
         groups = new ArrayList<>();
         events = new ArrayList<>();
+        surveys = new ArrayList<>();
 
         Action action1=new Action();
         action1.setActionName("Barbecue");
@@ -170,6 +171,15 @@ public class EventDaoImpl implements EventDao{
         event5.setEventRating(0);
         event5.setGroups(Arrays.asList(new Group[]{group2}));
         createEvent(event5);
+
+
+        Survey survey1 = new Survey();
+        survey1.setEvent(event1);
+        createSurvey(survey1);
+
+        Survey survey2 = new Survey();
+        survey2.setEvent(event2);
+        createSurvey(survey2);
     }
 
     @Override

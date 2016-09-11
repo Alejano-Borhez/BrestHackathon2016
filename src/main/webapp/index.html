@@ -25,7 +25,9 @@
                 <li id="groups-item" role="presentation">
                     <a href="#groups" data-toggle="pill">Groups</a>
                 </li>
-                <li role="presentation"><a href="#surveys" data-toggle="pill">Surveys</a></li>
+                <li id="surveys-item" role="presentation">
+                    <a href="#surveys" data-toggle="pill">Surveys</a>
+                </li>
             </ul>
         </div>
         <!-- Tab panes -->
@@ -64,7 +66,16 @@
                     </div>
                 </div>
             </div>
-            <div role="tabpanel" class="tab-pane" id="surveys">Some surveys</div>
+            <div role="tabpanel" class="tab-pane" id="surveys">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Surveys
+                    </div>
+                    <div class="panel-body">
+                        <div id="survey-list" class="row"></div>
+                    </div>
+                </div>
+            </div>
             <div role="tabpanel" class="tab-pane" id="add-event">
                 <div class="panel panel-default">
                     <div class="panel-heading">

@@ -172,7 +172,7 @@ $( document ).ready(function() {
                 column.map(function(x) {
                     var $item = $('<div>', {
                         'class' : 'media',
-                        'style' : 'padding-left:20px',
+                        'style' : 'padding-left:10%',
                         'html' : $('<div>', {
                             'class' : "media-left",
                             'html' : $('<img>', {
@@ -206,7 +206,7 @@ $( document ).ready(function() {
                     'html': $('<div>', {
                         'html' : $('<h3>', { 'html' : x.groupName, 'style':'text-align: center;'})
                             .add( $('<p>', {'html' : $('<ul>', {'html' : x.userList.map(function(a) {
-                                return $('<li>', { 'html': a.name+"<br/>" , 'class': 'thumbnail', 'style':'margin:2%'}).append(a.favourite.map(
+                                return $('<li>', { 'html': a.name+"<br/>" , 'class': 'thumbnail', 'style':'margin-left:2%'}).append(a.favourite.map(
                                     function (f) {
                                         return $('<div>',
                                             {'html': $('<span>', {'class' : 'label label-primary', 'html': f.actionName})
@@ -221,7 +221,20 @@ $( document ).ready(function() {
             }).forEach(function(x) { $('#group-list').append(x); });
         });
     });
-    
+
+    $("#surveys-item").click(function () {
+        console.log("surveys pressed");
+            $("#survey-list").empty();
+            $.get('/application/surveys', function (surveys) {
+                surveys.map(
+                    function(x){
+                        var $item = $('<div>', {'html' : $('<h4>', {'html':x.surveyId}).add($('<div>', {'html':x.event.eventName})), 'class' : 'col-lg-4 thumbnail', 'style' : 'margin-left: 2%;'});
+                        return $item;
+                    }).forEach(function(x) { $('#survey-list').append(x); });
+            });
+        }
+    );
+
     $("#events-item").trigger('click');
     
 });
