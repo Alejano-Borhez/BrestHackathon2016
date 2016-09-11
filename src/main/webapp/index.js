@@ -51,7 +51,41 @@ $( document ).ready(function() {
                                             'data-toggle' : 'pill',
                                             'html' : 'Show'
                                         }).click(function() {
-                                            model.selectedEvent = x.eventId;
+                                            $("#event-image")
+                                                .attr('src', 'img/events/' + x.eventId + '.jpg');
+                                            $("#event-name").html(x.eventName);
+                                            $("#event-description").html(x.eventDescription);
+                                            $("#event-groups").empty();
+                                            var userCount = 0;
+                                            x.groups.forEach(function(group) {
+                                                userCount += group.userList.length;
+                                                var $span = $('<span>', {
+                                                    'class' : 'badge',
+                                                    'html': group.userList.length
+                                                });
+                                                var $li = $('<li>', {
+                                                    'class' : 'list-group-item',
+                                                    'html' : group.groupName
+                                                });
+                                                $("#event-groups").append( $li.append($span) );
+                                            });
+                                            var expectedBudget = 0;
+                                            $("#event-actions").empty();
+                                            x.actions.forEach(function(action, index) {
+                                                var total = action.costPerUser * userCount;
+                                                expectedBudget += total;
+                                                var $row = $('<tr>', {
+                                                    'html' : $('<td>').html(index)
+                                                        .add($('<td>').html(action.actionName))
+                                                        .add($('<td>').html(action.costPerUser))
+                                                        .add($('<td>').html(total))
+                                                });
+                                                $("#event-actions").append($row);
+                                            });
+                                            $('#maximum-budget').html("Maximum budget: <strong>"
+                                                + x.budget + "</strong>");
+                                            $('#expected-budget').html("Expected budget: <strong>"
+                                                + expectedBudget + "</strong>");
                                         })
                                     }))
                              }))
