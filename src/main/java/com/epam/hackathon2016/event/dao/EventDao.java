@@ -2,8 +2,6 @@ package com.epam.hackathon2016.event.dao;
 
 import com.epam.hackathon2016.event.domain.*;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,4 +27,8 @@ public interface EventDao {
     int createGroup(Group group);
     List<Group> getAllGroups();
 
+    User getUserById(int userId);
+    int createUser(User user);
+    List<User> getAllUsers();
+    void updateUser(User user);
 }
