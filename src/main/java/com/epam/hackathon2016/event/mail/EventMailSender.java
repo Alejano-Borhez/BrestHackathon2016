@@ -2,6 +2,7 @@ package com.epam.hackathon2016.event.mail;
 
 import com.epam.hackathon2016.event.domain.Event;
 import com.epam.hackathon2016.event.domain.Group;
+import com.epam.hackathon2016.event.domain.Survey;
 import com.epam.hackathon2016.event.domain.User;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -17,11 +18,9 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
-import java.util.function.Function;
+import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Created by alexander on 11.9.16.
@@ -38,26 +37,53 @@ public class EventMailSender {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
 
+        String[] sendTo = getSendTo(event);
 
-        List<Group> groupList = event.getGroups();
-        List<String> emails = event.getGroups().stream().collect(Collectors.toList()).stream().map(Group::getUserList).map(User::getEmail).collect(Collectors.toList());
-        for (Group group: groupList) {
-            userList.addAll(group.getUserList().stream().collect(Collectors.toList()));
-        }
-
-
-        helper.setTo(emails);
         try {
-            helper.setSubject("Simple Social Network - password recovery");
-            helper.setText(text, true);
-        } catch (MessagingException e) {
+            helper.setTo(sendTo);
+            helper.setSubject("New EPAM event is coming! Get involved!!!");
+            helper.setText(prepareMailText(event, "event"), true);
+        } catch (MessagingException | TemplateException | IOException e) {
             e.printStackTrace();
+            return false;
         }
-        String text = prepareText("new", path, token, user);
 
         mailSender.send(mimeMessage);
 
         return true;
+    }
+
+    private boolean sendSurveyEmail(Survey survey) {
+        Event event = survey.getEvent();
+
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+
+        String[] sendTo = getSendTo(event);
+
+        try {
+            helper.setTo(sendTo);
+            helper.setSubject("EPAM event is over. And we are waiting for your feedback!!!");
+            helper.setText(prepareMailText(event, "survey"), true);
+        } catch (MessagingException | TemplateException | IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        mailSender.send(mimeMessage);
+
+        return true;
+    }
+
+    private String[] getSendTo(Event event) {
+        List<Group> groupList = event.getGroups();
+        List<User> userList = new ArrayList<>();
+        List<String> emails = new ArrayList<>();
+        for (Group group: groupList) {
+            userList.addAll(group.getUserList().stream().collect(Collectors.toList()));
+        }
+        emails.addAll(userList.stream().map(User::getEmail).collect(Collectors.toList()));
+        return (String[]) emails.toArray();
     }
 
     private String prepareMailText(Event event, String topic) throws IOException, TemplateException {
