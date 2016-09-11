@@ -29,9 +29,11 @@
 
                And there were many interesting actions specially for you:
                <#list event.actions as action>
-                <img src="localhost:8080/application/img/actions/${action.actionId}.jpg"/>
-                <p> ${action.actionName} </p>
-                <p> ${action.actionDescription} </p>
+                   <div class="row-fluid" id="${action.actionId}">
+                        <img src="localhost:8080/application/img/actions/${action.actionId}.jpg"/>
+                        <p> ${action.actionName} </p>
+                        <p> ${action.actionDescription} </p>
+                   </div>
                </#list>
 
                <strong>We are waiting for your feedback, ${user.name}!</strong>
