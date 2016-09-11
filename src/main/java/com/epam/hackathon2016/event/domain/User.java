@@ -11,6 +11,7 @@ public class User {
     private int id;
     private int groupId;
     private ArrayList<Action> favourite;
+    private String email;
 
     public ArrayList<Action> getFavourite() {
         return favourite;
@@ -42,5 +43,13 @@ public class User {
 
     public void setGroupId(int groupId) {
         this.groupId = groupId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

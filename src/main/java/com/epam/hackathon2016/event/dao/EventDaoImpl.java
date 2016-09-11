@@ -70,24 +70,28 @@ public class EventDaoImpl implements EventDao{
 
         User user1 = new User();
         user1.setName("Alexander Borohov");
+        user1.setEmail("alexander.borohov17@gmail.com");
         user1.setGroupId(1);
         ArrayList<Action> favActionsForUser1 = new ArrayList<>(Arrays.asList(new Action[]{action1, action2}));
         user1.setFavourite(favActionsForUser1);
 
         User user2 = new User();
         user2.setName("Andrei Mushinsky");
+        user2.setEmail("alexander.borohov17@gmail.com");
         user2.setGroupId(1);
         ArrayList<Action> favActionsForUser2 = new ArrayList<>(Arrays.asList(new Action[]{action2, action3, action6}));
         user2.setFavourite(favActionsForUser2);
 
         User user3 = new User();
         user3.setName("Anton Savitsky");
+        user3.setEmail("alexander.borohov17@gmail.com");
         user3.setGroupId(2);
         ArrayList<Action> favActionsForUser3 = new ArrayList<>(Arrays.asList(new Action[]{action4, action5}));
         user3.setFavourite(favActionsForUser3);
 
         User user4 = new User();
         user4.setName("Vasily Bur");
+        user4.setEmail("alexander.borohov17@gmail.com");
         user4.setGroupId(2);
         ArrayList<Action> favActionsForUser4 = new ArrayList<>(Arrays.asList(new Action[]{action2, action3, action5, action6}));
         user4.setFavourite(favActionsForUser4);
