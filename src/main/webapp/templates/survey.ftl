@@ -29,7 +29,7 @@
 
                And there were many interesting actions specially for you:
                <#list event.actions as action>
-                <img src="/img/actions/${action.actionId}.jpg"/>
+                <img src="localhost:8080/application/img/actions/${action.actionId}.jpg"/>
                 <p> ${action.actionName} </p>
                 <p> ${action.actionDescription} </p>
                </#list>

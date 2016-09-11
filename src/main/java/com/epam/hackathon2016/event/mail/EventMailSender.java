@@ -45,7 +45,7 @@ public class EventMailSender {
 
                 helper.setTo(user.getEmail());
                 helper.setSubject("Dear, " + user.getName() + "! New EPAM event is coming! Get involved!!!");
-                helper.setText(prepareMailText(event, "event", user));
+                helper.setText(prepareMailText(event, "event", user), true);
                 mailSender.send(mimeMessage);
 
             } catch (MessagingException | TemplateException | IOException e) {
@@ -71,7 +71,7 @@ public class EventMailSender {
             try {
                 helper.setTo(user.getEmail());
                 helper.setSubject("Dear, " + user.getName() + "! EPAM event is over. And we are waiting for your feedback!!!");
-                helper.setText(prepareMailText(event, "survey", user));
+                helper.setText(prepareMailText(event, "survey", user), true);
                 mailSender.send(mimeMessage);
 
             } catch (MessagingException | TemplateException | IOException e) {
