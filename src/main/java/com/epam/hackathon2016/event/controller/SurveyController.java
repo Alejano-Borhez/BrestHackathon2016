@@ -48,7 +48,7 @@ public class SurveyController {
         return surveyId;
     }
 
-    @RequestMapping(name = "/{surveyId}/{userId}/vote", method = RequestMethod.POST)
+    @RequestMapping(value = "/{surveyId}/{userId}/vote", method = RequestMethod.POST)
     public boolean voteInSurvey(@PathVariable("surveyId") int surveyId,
                                 @PathVariable("userId") int userId,
                                 @RequestParam("votesMap") Map<Integer, Integer> votesMap,
