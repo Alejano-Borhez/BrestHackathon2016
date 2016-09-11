@@ -34,15 +34,15 @@ public class EventMailSender {
 
     public boolean sendEventCreationEmail(Event event) {
 
-        MimeMessage mimeMessage = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
-
         List<User> userList = new ArrayList<>();
         for (Group group: event.getGroups()) {
             userList.addAll(group.getUserList().stream().collect(Collectors.toList()));
         }
         userList.stream().forEach(user -> {
             try {
+                MimeMessage mimeMessage = mailSender.createMimeMessage();
+                MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+
                 helper.setTo(user.getEmail());
                 helper.setSubject("Dear, " + user.getName() + "! New EPAM event is coming! Get involved!!!");
                 helper.setText(prepareMailText(event, "event", user));
