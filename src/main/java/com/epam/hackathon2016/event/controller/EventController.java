@@ -1,6 +1,7 @@
 package com.epam.hackathon2016.event.controller;
 
 import com.epam.hackathon2016.event.dao.EventDao;
+import com.epam.hackathon2016.event.domain.Action;
 import com.epam.hackathon2016.event.domain.Event;
 import com.epam.hackathon2016.event.domain.Group;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,7 @@ public class EventController {
                            @RequestParam("eventDescription") String eventDescription,
                            @RequestParam("picture") MultipartFile picture,
                            @RequestParam("groupList") List<Integer> groupIds,
+                           @RequestParam("actionList") List<Integer> actionIds,
                            HttpServletResponse response
     ) throws IOException, ParseException {
         Event event = new Event();
@@ -68,6 +70,10 @@ public class EventController {
                 .map(id -> dao.getGroupById(id))
                 .collect(Collectors.toList());
         event.setGroups(groups);
+        List<Action> actions = actionIds.stream()
+                .map(id -> dao.getActionById(id))
+                .collect(Collectors.toList());
+        event.setActions(actions);
 
         int eventId = dao.createEvent(event);
 

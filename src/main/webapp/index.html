@@ -90,8 +90,13 @@
                                 <div class="input-group">
                                     <div class="input-group-addon">BYN</div>
                                     <input type="text" class="form-control" name="budget" id="budget" placeholder="Amount">
-                                    <div class="input-group-addon">.00</div>
+                                    <div id="remain-amount" class="input-group-addon">Remain: 0 BYN</div>
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="actionList">Actions</label>
+                                <select multiple id="actionList" name="actionList" class="form-control">
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="groupList">Groups</label>
@@ -102,7 +107,7 @@
                                 <label for="picture">File input</label>
                                 <input type="file" name="picture" id="picture">
                             </div>
-                            <button type="submit" class="btn btn-default">Submit</button>
+                            <button id="add-event-button" type="submit" class="btn btn-default">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -113,6 +118,40 @@
                         Show event
                     </div>
                     <div class="panel-body">
+                        <div class="media">
+                            <div class="media-left">
+                                <img id="event-image" class="media-object"
+                                     src="img/epam.png" width="300px" />
+                            </div>
+                            <div class="media-body">
+                                <h4 id="event-name" class="media-heading"></h4>
+                                <p id="event-description"></p>
+                                <hr/>
+                                <p id="event-date"></p>
+                                <p id="event-location"></p>
+                                <p id="maximum-budget"></p>
+                                <p id="expected-budget"></p>
+                                <hr/>
+                                <h4>Actions:</h4>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Cost per participant</th>
+                                            <th>Cost Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="event-actions">
+
+                                    </tbody>
+                                </table>
+                                <hr/>
+                                <h4>Participating groups:</h4>
+                                <ul id="event-groups" class="list-group">
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

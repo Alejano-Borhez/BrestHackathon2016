@@ -2,13 +2,65 @@ $( document ).ready(function() {
     console.log( "ready!" );
     var model = {};
 
+    function expectedBudget() {
+        var maximum = model.budget || 0;
+        var expected = 0;
+        (model.selectedGroups || []).forEach(function(groupId) {
+            var memberCount = model.groups[groupId].userList.length;
+            (model.selectedActions || []).forEach(function(actionId) {
+                var cost = model.actions[actionId].costPerUser;
+                expected += (cost * memberCount);
+            });
+        });
+        var remain = maximum - expected;
+        if (remain >= 0) {
+            $('#remain-amount')
+                .html('Remain: ' + remain + ' BYN')
+                .css('color', 'green');
+            $('#add-event-button').removeAttr('disabled');
+        } else {
+            $('#remain-amount')
+                .html('Over-limit: ' + -remain + ' BYN')
+                .css('color', 'red');
+            $('#add-event-button').attr('disabled', 'disabled');
+        }
+    }
+
+    $('#budget').change(function() {
+        model.budget = $(this).val();
+        expectedBudget();
+    });
+
+    $('#groupList').change(function() {
+        model.selectedGroups = $(this).val();
+        expectedBudget();
+    });
+
+    $('#actionList').change(function() {
+        model.selectedActions = $(this).val();
+        expectedBudget();
+    });
+
     $("#add-event-btn").click(function() {
         $('#groupList').empty();
         $.get('/application/groups', function(groups) {
+            model.groups = {};
             groups.forEach(function(group) {
+                model.groups[group.groupId] = group;
                 $('#groupList').append( $('<option>', {
                     'value' : group.groupId,
-                    'html' : group.groupName
+                    'html' : group.groupName + " (" + group.userList.length + " members)"
+                }) );
+            })
+        });
+        $('#actionList').empty();
+        $.get('/application/actions', function(actions) {
+            model.actions = {};
+            actions.forEach(function(action) {
+                model.actions[action.actionId] = action;
+                $('#actionList').append( $('<option>', {
+                    'value' : action.actionId,
+                    'html' : action.actionName + " (" + action.costPerUser + " BYN per person)"
                 }) );
             })
         });
@@ -51,7 +103,45 @@ $( document ).ready(function() {
                                             'data-toggle' : 'pill',
                                             'html' : 'Show'
                                         }).click(function() {
-                                            model.selectedEvent = x.eventId;
+                                            $("#event-image")
+                                                .attr('src', 'img/events/' + x.eventId + '.jpg');
+                                            $("#event-name").html(x.eventName);
+                                            $("#event-description").html(x.eventDescription);
+                                            $("#event-groups").empty();
+                                            var userCount = 0;
+                                            x.groups.forEach(function(group) {
+                                                userCount += group.userList.length;
+                                                var $span = $('<span>', {
+                                                    'class' : 'badge',
+                                                    'html': group.userList.length
+                                                });
+                                                var $li = $('<li>', {
+                                                    'class' : 'list-group-item',
+                                                    'html' : group.groupName
+                                                });
+                                                $("#event-groups").append( $li.append($span) );
+                                            });
+                                            var expectedBudget = 0;
+                                            $("#event-actions").empty();
+                                            x.actions.forEach(function(action, index) {
+                                                var total = action.costPerUser * userCount;
+                                                expectedBudget += total;
+                                                var $row = $('<tr>', {
+                                                    'html' : $('<td>').html(index)
+                                                        .add($('<td>').html(action.actionName))
+                                                        .add($('<td>').html(action.costPerUser))
+                                                        .add($('<td>').html(total))
+                                                });
+                                                $("#event-actions").append($row);
+                                            });
+                                            $('#maximum-budget').html("Maximum budget: <strong>"
+                                                + x.budget + "</strong>");
+                                            $('#expected-budget').html("Expected budget: <strong>"
+                                                + expectedBudget + "</strong>");
+                                            $('#event-date').html("Date: <strong>"
+                                                + new Date(x.eventDate).toDateString() + "</strong>");
+                                            $('#event-location').html("Location: <strong>"
+                                                + x.location + "</strong>");
                                         })
                                     }))
                              }))
