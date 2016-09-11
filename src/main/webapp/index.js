@@ -56,10 +56,17 @@ $( document ).ready(function() {
         $('#actionList').empty();
         $.get('/application/actions', function(actions) {
             model.actions = {};
+            var ratings = actions.map(function(a) { return a.actionRating; });
+            var avg = ratings.reduce(function(x, y){ return x + y; })/ratings.length;
             actions.forEach(function(action) {
                 model.actions[action.actionId] = action;
+                var color = 'bg-info';
+                if (action.actionRating < avg/2) color = 'bg-danger';
+                else if (action.actionRating < avg) color = 'bg-warning';
+                else if (action.actionRating < avg * 1.5) color = 'bg-success';
                 $('#actionList').append( $('<option>', {
                     'value' : action.actionId,
+                    'class' : color,
                     'html' : action.actionName + " (" + action.costPerUser + " BYN per person)"
                 }) );
             })
