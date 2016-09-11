@@ -207,13 +207,14 @@ $( document ).ready(function() {
                         'class' : 'thumbnail',
                         'style' : 'border-color: #87CEE6',
                         'html' : $('<h3>', { 'html' : x.groupName })
-                            .add( $('<p>', {'html' : $('<ul>').add(x.userList.map(function(a) {
-                                return $('<li>').html(a.name).html('<p>').html(a.favourite.map(
+                            .add( $('<p>', {'html' : $('<ul>').add($('<p>'), {'html' : x.userList.map(function(a) {
+                                return $('<li>').add($('<p>'), {'html' : a.favourite.map(
                                     function (f) {
-                                        return $('<span>').addClass('label label-default').html(f.actionName);
+                                        return $('<span>', {'class' : 'label label-default', 'html': f.actionName});
                                     }
-                                ));
-                            })) }))
+                                )});
+                            })})
+                            }))
                     })
                 });
                 return $item;
