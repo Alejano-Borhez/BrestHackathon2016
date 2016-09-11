@@ -4,6 +4,7 @@ import com.epam.hackathon2016.event.dao.EventDao;
 import com.epam.hackathon2016.event.domain.Action;
 import com.epam.hackathon2016.event.domain.Event;
 import com.epam.hackathon2016.event.domain.Group;
+import com.epam.hackathon2016.event.mail.EventMailSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -29,11 +29,13 @@ import java.util.stream.Collectors;
 public class EventController {
     private EventDao dao;
     private ServletContext servletContext;
+    private EventMailSender mailSender;
 
     @Autowired
-    public EventController(EventDao dao, ServletContext servletContext) {
+    public EventController(EventDao dao, ServletContext servletContext, EventMailSender mailSender) {
         this.dao = dao;
         this.servletContext = servletContext;
+        this.mailSender = mailSender;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -67,11 +69,11 @@ public class EventController {
         event.setEventName(eventName);
         event.setEventDescription(eventDescription);
         List<Group> groups = groupIds.stream()
-                .map(id -> dao.getGroupById(id))
+                .map(dao::getGroupById)
                 .collect(Collectors.toList());
         event.setGroups(groups);
         List<Action> actions = actionIds.stream()
-                .map(id -> dao.getActionById(id))
+                .map(dao::getActionById)
                 .collect(Collectors.toList());
         event.setActions(actions);
 
@@ -80,7 +82,7 @@ public class EventController {
         String folder = servletContext.getResource("/img/events").getFile();
         File image = new File(folder + eventId + ".jpg");
         FileCopyUtils.copy(picture.getInputStream(), new FileOutputStream(image));
-
+        mailSender.sendEventCreationEmail(event);
         response.sendRedirect("index.html");
         return eventId;
     }

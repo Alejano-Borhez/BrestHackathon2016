@@ -7,6 +7,7 @@ import com.epam.hackathon2016.event.domain.User;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
@@ -26,10 +27,12 @@ import java.util.stream.Collectors;
  */
 @Component
 public class EventMailSender {
+    @Autowired
     private JavaMailSender mailSender;
+    @Autowired
     private Configuration freeMarkerConfig;
 
-    private boolean sendEventCreationEmail(Event event) {
+    public boolean sendEventCreationEmail(Event event) {
 
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
@@ -54,7 +57,7 @@ public class EventMailSender {
         return true;
     }
 
-    private boolean sendSurveyEmail(Survey survey) {
+    public boolean sendSurveyEmail(Survey survey) {
         Event event = survey.getEvent();
 
         MimeMessage mimeMessage = mailSender.createMimeMessage();

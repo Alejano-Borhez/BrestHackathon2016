@@ -16,21 +16,21 @@
                <h1> Hello ${user.name!""}! </h1>
            </div>
            <div class="row-fluid">
-               As an EPAM'er you are invited to great new event "${event.name}"!
+               As an EPAM'er you were a participant of an event "${event.eventName}"!
 
-               It will be held in ${event.location} at ${event.date}.
+               It was held in ${event.location} at ${event.eventDate?date}.
 
                Brief description of an event:
-               <p> ${event.description} </p>
+               <p> ${event.eventDescription} </p>
 
-               And there will be many interesting actions specially for you:
+               And there were many interesting actions specially for you:
                <#list event.actions as action>
                 <img src="/img/actions/${action.actionId}.jpg"/>
                 <p> ${action.actionName} </p>
                 <p> ${action.actionDescription} </p>
                </#list>
 
-               <strong>We are waiting for you, ${user.name}!</strong>
+               <strong>We are waiting for your feedback, ${user.name}!</strong>
            </div>
        </div>
     </body>
