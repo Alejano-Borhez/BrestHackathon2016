@@ -86,6 +86,10 @@ $( document ).ready(function() {
                                                 + x.budget + "</strong>");
                                             $('#expected-budget').html("Expected budget: <strong>"
                                                 + expectedBudget + "</strong>");
+                                            $('#event-date').html("Date: <strong>"
+                                                + new Date(x.eventDate).toDateString() + "</strong>");
+                                            $('#event-location').html("Location: <strong>"
+                                                + x.location + "</strong>");
                                         })
                                     }))
                              }))
