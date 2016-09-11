@@ -11,6 +11,7 @@
             <param-name>contextConfigLocation</param-name>
             <param-value>/WEB-INF/spring/rest-spring-context.xml</param-value>
         </init-param>
+        <multipart-config />
         <load-on-startup>1</load-on-startup>
 
     </servlet>

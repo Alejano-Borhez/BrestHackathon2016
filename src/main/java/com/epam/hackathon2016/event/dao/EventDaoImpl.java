@@ -27,42 +27,42 @@ public class EventDaoImpl implements EventDao{
         events = new ArrayList<>();
 
         Action action1=new Action();
-        action1.setType(ActionType.BBQ);
+        action1.setActionName("Barbecue");
         action1.setActionDescription("This is Barbecue Baby!");
         action1.setActionRating(0);
         action1.setCostPerUser(100);
         createAction(action1);
 
         Action action2=new Action();
-        action2.setType(ActionType.PIZZA);
+        action2.setActionName("Pizza");
         action2.setActionDescription("Wanna Pizza?");
         action2.setActionRating(0);
         action2.setCostPerUser(50);
         createAction(action2);
 
         Action action3=new Action();
-        action3.setType(ActionType.BILLIARD);
+        action3.setActionName("Billiard");
         action3.setActionDescription("Lets play!");
         action3.setActionRating(0);
         action3.setCostPerUser(80);
         createAction(action3);
 
         Action action4=new Action();
-        action4.setType(ActionType.POKER);
+        action4.setActionName("Poker");
         action4.setActionDescription("Bring your money man!");
         action4.setActionRating(0);
         action4.setCostPerUser(20);
         createAction(action4);
 
         Action action5=new Action();
-        action5.setType(ActionType.BOATING);
+        action5.setActionName("Boating");
         action5.setActionDescription("Swimming? Cool!");
         action5.setActionRating(0);
         action5.setCostPerUser(10);
         createAction(action5);
 
         Action action6=new Action();
-        action6.setType(ActionType.SAUNA);
+        action6.setActionName("Sauna");
         action6.setActionDescription("Take a towel and be ready to get sweat!");
         action6.setActionRating(0);
         action6.setCostPerUser(50);
@@ -94,7 +94,7 @@ public class EventDaoImpl implements EventDao{
 
         Group group1 = new Group();
         group1.setGroupId(1);
-        group1.setGroupName("Java Team 1");
+        group1.setGroupName("Java Team");
         lastGroupId = 1;
         ArrayList<User> usersGroup1 = new ArrayList<>(Arrays.asList(new User[]{user1, user2}));
         group1.setUserList(usersGroup1);
@@ -102,7 +102,7 @@ public class EventDaoImpl implements EventDao{
 
         Group group2 = new Group();
         group2.setGroupId(2);
-        group2.setGroupName("Java Team 2");
+        group2.setGroupName(".NET Team");
         lastGroupId = 2;
         ArrayList<User> usersGroup2 = new ArrayList<>(Arrays.asList(new User[]{user3, user4}));
         group2.setUserList(usersGroup2);

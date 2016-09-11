@@ -2,6 +2,18 @@ $( document ).ready(function() {
     console.log( "ready!" );
     var model = {};
 
+    $("#add-event-btn").click(function() {
+        $('#groupList').empty();
+        $.get('/application/groups', function(groups) {
+            groups.forEach(function(group) {
+                $('#groupList').append( $('<option>', {
+                    'value' : group.groupId,
+                    'html' : group.groupName
+                }) );
+            })
+        });
+    });
+
     $("#events-item").click(function() {
         $('#event-list').empty();
         $.get('/application/events', function(events) {
@@ -29,7 +41,7 @@ $( document ).ready(function() {
                                        .add( $('<p>').html(x.eventDescription) )
                                        .add( $('<ul>', {
                                             'html': x.actions.map(function(a) {
-                                            return $('<li>').html(a.type);
+                                            return $('<li>').html(a.actionName);
                                        })
                                     })).add( $('<p>', {
                                             'html' : $('<a>', {
@@ -67,7 +79,7 @@ $( document ).ready(function() {
                     }).add( $('<div>', {
                         'class' : "media-body",
                         'html' : $('<h4>')
-                            .html("(" + x.type + ") " + x.actionDescription)
+                            .html("(" + x.actionName + ") " + x.actionDescription)
                     }))
                 });
                 return $item;
