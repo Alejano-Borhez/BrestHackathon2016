@@ -40,7 +40,7 @@ $( document ).ready(function() {
                                        .add( $('<p>').html(x.eventDescription) )
                                        .add( $('<ul>', {
                                             'html': x.actions.map(function(a) {
-                                            return $('<li>').html(a.type);
+                                            return $('<li>').html(a.actionName);
                                        })
                                     })).add( $('<p>', {
                                             'html' : $('<a>', {
@@ -78,7 +78,7 @@ $( document ).ready(function() {
                     }).add( $('<div>', {
                         'class' : "media-body",
                         'html' : $('<h4>')
-                            .html("(" + x.type + ") " + x.actionDescription)
+                            .html("(" + x.actionName + ") " + x.actionDescription)
                     }))
                 });
                 return $item;
