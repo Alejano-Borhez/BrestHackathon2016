@@ -202,7 +202,7 @@ $( document ).ready(function() {
         $.get('/application/groups', function(groups) {
             groups.map(function(x) {
                 var $item = $('<div>', {
-                    'class' : 'col-lg-4',
+                    'class' : 'col-lg-6',
                     'html': $('<div>', {
                         'html' : $('<h3>', { 'html' : x.groupName, 'style':'text-align: center;'})
                             .add( $('<p>', {'html' : $('<ul>', {'html' : x.userList.map(function(a) {
