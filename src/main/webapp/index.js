@@ -206,7 +206,7 @@ $( document ).ready(function() {
                     'html': $('<div>', {
                         'html' : $('<h3>', { 'html' : x.groupName, 'style':'text-align: center;'})
                             .add( $('<p>', {'html' : $('<ul>', {'html' : x.userList.map(function(a) {
-                                return $('<li>', { 'html': a.name+"<br/>" , 'class': 'thumbnail', 'style':'margin-left:2%'}).append(a.favourite.map(
+                                return $('<li>', { 'html': a.name+"<br/>" , 'class': 'thumbnail', 'style':'margin-left:2%; margin-right:2%'}).append(a.favourite.map(
                                     function (f) {
                                         return $('<div>',
                                             {'html': $('<span>', {'class' : 'label label-primary', 'html': f.actionName})
@@ -236,5 +236,22 @@ $( document ).ready(function() {
     );
 
     $("#events-item").trigger('click');
-    
+
+    $("#add-survey-btn").click(function() {
+            console.log("add survey");
+
+            $('#survey-list').empty();
+
+            $.get('/application/surveys/notSurveyed', function(events) {
+                console.log("get events");
+                model.events = {};
+                events.forEach(function(event) {
+                    model.events[event.eventId] = event;
+                    $('#eventId').append( $('<option>', {
+                        'value' : event.eventId,
+                        'html' : event.eventName
+                    }) );
+                });
+            });
+    });
 });

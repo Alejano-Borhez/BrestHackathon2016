@@ -82,12 +82,12 @@ public class EventController {
         String folder = servletContext.getResource("/img/events").getFile();
         File image = new File(folder + eventId + ".jpg");
         FileCopyUtils.copy(picture.getInputStream(), new FileOutputStream(image));
-        mailSender.sendEventCreationEmail(event);
+        //mailSender.sendEventCreationEmail(event);
         response.sendRedirect("index.html");
         return eventId;
     }
 
-    @RequestMapping(name = "/{eventId}/update", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{eventId}/update", method = RequestMethod.PUT)
     public boolean updateEvent(@PathVariable("eventId") int eventId,
                            @RequestParam("date") String date,
                            @RequestParam("budget") double budget,
@@ -111,4 +111,5 @@ public class EventController {
         response.sendRedirect("index.html");
         return updated;
     }
+
 }

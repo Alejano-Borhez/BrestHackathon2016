@@ -31,4 +31,6 @@ public interface EventDao {
     int createUser(User user);
     List<User> getAllUsers();
     void updateUser(User user);
+
+    List<Event> getNotSurveyedEvents();
 }

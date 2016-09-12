@@ -5,10 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by asavitsky on 9/10/16.
@@ -192,7 +189,7 @@ public class EventDaoImpl implements EventDao{
         createSurvey(survey1);
 
         Survey survey2 = new Survey();
-        survey2.setEvent(event2);
+        survey2.setEvent(event3);
         createSurvey(survey2);
     }
 
@@ -327,6 +324,25 @@ public class EventDaoImpl implements EventDao{
         users.set(users.indexOf(toBeUpdated), user);
     }
 
+    @Override
+    public List<Event> getNotSurveyedEvents() {
+        List<Event> surveyedEvents=new ArrayList<>();
+        List<Event> notSurveyedEvents = new ArrayList<>();
+        Iterator<Survey> survIter=surveys.iterator();
+
+        while(survIter.hasNext())
+            surveyedEvents.add(survIter.next().getEvent());
+
+        Iterator<Event> allEventsIter=events.iterator();
+        while(allEventsIter.hasNext()) {
+            Event event=allEventsIter.next();
+            if (surveyedEvents.contains(event))
+                continue;
+            notSurveyedEvents.add(event);
+        }
+        return notSurveyedEvents;
+    }
+
     Date stringToDate(String str){
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
@@ -336,6 +352,15 @@ public class EventDaoImpl implements EventDao{
             e.printStackTrace();
         }
         return date;
+    }
+
+    public static void main(String[] args){
+        EventDaoImpl eventDaoImpl=new EventDaoImpl();
+        List<Event> evs = eventDaoImpl.getNotSurveyedEvents();
+        Iterator<Event> evIter=evs.iterator();
+
+        while(evIter.hasNext())
+            System.out.println(evIter.next().getEventId());
     }
 
 }

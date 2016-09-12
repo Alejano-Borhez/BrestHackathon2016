@@ -36,14 +36,14 @@ public class SurveyController {
         return dao.getSurveyById(surveyId);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST, consumes = "multipart/form-data")
     public int createSurvey(@RequestParam("eventId") int eventId, HttpServletResponse resp
             ) throws IOException {
         Event event = dao.getEventById(eventId);
         Survey survey = new Survey();
         survey.setEvent(event);
         int surveyId = dao.createSurvey(survey);
-        mailSender.sendSurveyEmail(survey);
+        //mailSender.sendSurveyEmail(survey);
         resp.sendRedirect("index.html");
         return surveyId;
     }
@@ -75,5 +75,10 @@ public class SurveyController {
         dao.updateUser(user);
 
         return true;
+    }
+
+    @RequestMapping("/notSurveyed")
+    public List<Event> notSurveyedEvents() {
+        return dao.getNotSurveyedEvents();
     }
 }
